@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Appointment - MediCare+</title>
+    <link rel="stylesheet" href="./appointment-style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="appointment-page">
+
+<nav class="navbar">
+    <div class="logo">MediCare+</div>
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#booked-appointments">My Appointments</a></li>
+    </ul>
+</nav>
+
+<!-- Hero Section with Background -->
+<div class="appointment-hero">
+    <div class="hero-overlay">
+        <div class="hero-content">
+            <h1>Schedule Your Appointment</h1>
+            <p>Get expert medical care with our experienced doctors</p>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="appointment-main">
+    <div class="form-section">
+        <h2>📝 Appointment Details</h2>
+        
+        <form id="appointmentForm" onsubmit="bookAppointment(event)" class="modern-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="name">Patient Name</label>
+                    <input type="text" id="name" placeholder="Full name" required>
+                    <span class="error" id="nameError"></span>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="your@email.com" required>
+                    <span class="error" id="emailError"></span>
+                </div>
+            </div>
+
+            <!-- Row 2: Phone and Department -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" placeholder="+1 (555) 000-0000" required>
+                    <span class="error" id="phoneError"></span>
+                </div>
+                <div class="form-group">
+                    <label for="department">Select Department</label>
+                    <select id="department" required>
+                        <option value="">Choose a department...</option>
+                        <option value="Cardiology">❤️ Cardiology</option>
+                        <option value="Dermatology">👨‍⚕️ Dermatology</option>
+                        <option value="Neurology">🧠 Neurology</option>
+                        <option value="Orthopedics">🦴 Orthopedics</option>
+                        <option value="Pediatrics">👶 Pediatrics</option>
+                        <option value="General Medicine">💊 General Medicine</option>
+                    </select>
+                    <span class="error" id="departmentError"></span>
+                </div>
+            </div>
+
+            <!-- Row 3: Date and Time -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="date">Appointment Date</label>
+                    <input type="date" id="date" required>
+                    <span class="error" id="dateError"></span>
+                </div>
+                <div class="form-group">
+                    <label for="time">Appointment Time</label>
+                    <input type="time" id="time" required>
+                    <span class="error" id="timeError"></span>
+                </div>
+            </div>
+
+            <!-- Row 4: Doctor and Reason -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="doctor">Select Doctor</label>
+                    <select id="doctor" required>
+                        <option value="">Choose a doctor...</option>
+                        <option value="Dr. John Smith">Dr. John Smith - Cardiology</option>
+                        <option value="Dr. Sarah Johnson">Dr. Sarah Johnson - Dermatology</option>
+                        <option value="Dr. Michael Chen">Dr. Michael Chen - Neurology</option>
+                        <option value="Dr. Emily Davis">Dr. Emily Davis - Pediatrics</option>
+                    </select>
+                    <span class="error" id="doctorError"></span>
+                </div>
+                <div class="form-group">
+                    <label for="reason">Reason for Visit</label>
+                    <textarea id="reason" placeholder="Describe your symptoms..." rows="3" required></textarea>
+                    <span class="error" id="reasonError"></span>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit">✓ Confirm Appointment</button>
+        </form>
+
+        <div id="message" class="message"></div>
+    </div>
+
+    <!-- Info Section -->
+    <div class="info-section">
+        <div class="info-card">
+            <div class="info-icon">⏰</div>
+            <h3>Working Hours</h3>
+            <p>Monday - Friday: 9:00 AM - 5:00 PM</p>
+            <p>Saturday: 10:00 AM - 3:00 PM</p>
+            <p>Sunday: Closed</p>
+        </div>
+
+        <div class="info-card">
+            <div class="info-icon">🩺</div>
+            <h3>Services</h3>
+            <p>✓ General Checkups</p>
+            <p>✓ Specialist Consultations</p>
+            <p>✓ Lab Tests</p>
+            <p>✓ Follow-up Care</p>
+        </div>
+
+        <div class="info-card">
+            <div class="info-icon">📞</div>
+            <h3>Need Help?</h3>
+            <p>Call: +1 (555) 123-4567</p>
+            <p>Email: info@medicare.com</p>
+            <p>Address: 123 Health St, Medical City</p>
+        </div>
+    </div>
+</div>
+
+<!-- Appointments Section -->
+<div class="appointments-section" id="booked-appointments">
+    <h2>📋 Your Booked Appointments</h2>
+    <div class="appointments-container">
+        <div id="appointmentsList" class="appointments-grid">
+            <p class="no-appointments">No appointments booked yet</p>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    © 2026 MediCare+ | Smart Hospital Management System | Hackathon Project
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+
