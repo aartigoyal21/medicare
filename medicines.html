@@ -2,165 +2,208 @@
 <html lang="en">
 <head>
   <title>Medicine Information | MediCare+</title>
-
-
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
   <style>
-    body{
-      font-family:'Poppins',sans-serif;
-      background:#f4f7fb;
-      color:#1f2937;
-      margin:0;
-      transition:.3s;
+    body { font-family:'Poppins',sans-serif; background:#f4f7fb; color:#1f2937; margin:0; transition:.3s; }
+    body.dark { background:#0f172a; color:#e5e7eb; }
+
+    .top-bar { display:flex; justify-content:space-between; align-items:center; padding:18px 35px; background:#ffffff; box-shadow:0 4px 12px rgba(0,0,0,.08); }
+    body.dark .top-bar { background:#020617; }
+    .logo { font-size:20px; font-weight:600; color:#2563eb; }
+    body.dark .logo { color:#93c5fd; }
+    .actions { display:flex; gap:20px; align-items:center; }
+    .home-btn { text-decoration:none; font-size:14px; padding:8px 14px; border-radius:6px; background:#2563eb; color:white; }
+    .toggle { font-size:20px; cursor:pointer; }
+
+    .header { text-align:center; margin:40px 20px 30px; }
+    .header h2 { color:#1e3a8a; margin-bottom:6px; }
+    body.dark .header h2 { color:#bfdbfe; }
+    .header p { color:#6b7280; font-size:15px; }
+    body.dark .header p { color:#94a3b8; }
+
+    /* Search bar */
+    .search-wrap {
+      display: flex;
+      justify-content: center;
+      margin: 0 40px 28px;
     }
-    body.dark{
-      background:#0f172a;
-      color:#e5e7eb;
+    .search-wrap input {
+      width: 100%;
+      max-width: 480px;
+      padding: 12px 20px;
+      border-radius: 30px;
+      border: 2px solid #dbeafe;
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+      outline: none;
+      background: white;
+      color: #1f2937;
+      transition: 0.3s;
+    }
+    body.dark .search-wrap input {
+      background: #1e293b;
+      border-color: rgba(144,224,239,0.3);
+      color: #e5e7eb;
+    }
+    .search-wrap input:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,0.15); }
+
+    /* Stock filter tabs */
+    .filter-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 0 40px 28px;
+      flex-wrap: wrap;
+    }
+    .filter-tab {
+      padding: 7px 18px;
+      border-radius: 20px;
+      border: 1px solid #dbeafe;
+      background: white;
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      cursor: pointer;
+      transition: 0.25s;
+      color: #374151;
+    }
+    body.dark .filter-tab { background: #1e293b; border-color: rgba(144,224,239,0.2); color: #94a3b8; }
+    .filter-tab.active, .filter-tab:hover {
+      background: #2563eb; color: white; border-color: #2563eb;
+    }
+    body.dark .filter-tab.active { background: #0077b6; border-color: #0077b6; }
+
+    /* Stats strip */
+    .stats-strip {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin: 0 40px 28px;
+      flex-wrap: wrap;
+    }
+    .stat-pill {
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      background: #f0f9ff;
+      color: #0369a1;
+      border: 1px solid #bae6fd;
+    }
+    body.dark .stat-pill { background: rgba(0,119,182,0.15); color: #90e0ef; border-color: rgba(0,229,255,0.2); }
+
+    .medicine-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+      gap: 25px;
+      padding: 0 40px 40px;
     }
 
-    .top-bar{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:18px 35px;
-      background:#ffffff;
-      box-shadow:0 4px 12px rgba(0,0,0,.08);
+    .medicine-card {
+      background: white;
+      padding: 24px;
+      border-radius: 14px;
+      box-shadow: 0 6px 20px rgba(0,0,0,.08);
+      text-align: center;
+      transition: .3s;
+      position: relative;
+      overflow: hidden;
     }
-    body.dark .top-bar{background:#020617}
+    body.dark .medicine-card { background: #1e293b; }
+    .medicine-card:hover { transform: translateY(-5px); box-shadow: 0 14px 36px rgba(0,0,0,.14); }
 
-    .logo{
-      font-size:20px;
-      font-weight:600;
-      color:#2563eb;
-    }
-    body.dark .logo{color:#93c5fd}
-
-    .actions{
-      display:flex;
-      gap:20px;
-      align-items:center;
-    }
-
-    .home-btn{
-      text-decoration:none;
-      font-size:14px;
-      padding:8px 14px;
-      border-radius:6px;
-      background:#2563eb;
-      color:white;
+    /* colored top strip per card */
+    .medicine-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #2563eb, #38bdf8);
     }
 
-    .toggle{
-      font-size:20px;
-      cursor:pointer;
-    }
+    .icon { font-size: 34px; color: #2563eb; margin-bottom: 12px; margin-top: 8px; }
+    body.dark .icon { color: #93c5fd; }
 
-    .header{
-      text-align:center;
-      margin:40px 20px 30px;
-    }
-    .header h2{
-      color:#1e3a8a;
-      margin-bottom:6px;
-    }
-    body.dark .header h2{color:#bfdbfe}
+    .medicine-card h3 { margin: 6px 0 12px; font-size: 18px; color: #2563eb; }
+    body.dark .medicine-card h3 { color: #93c5fd; }
 
-    .header p{
-      color:#6b7280;
-      font-size:15px;
-    }
-    body.dark .header p{color:#94a3b8}
+    .row { font-size: 14px; margin: 6px 0; color: #374151; }
+    body.dark .row { color: #cbd5e1; }
+    .label { font-weight: 600; }
 
+    .stock {
+      margin-top: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 14px;
+      border-radius: 20px;
+      display: inline-block;
+    }
+    .stock-available { background: #dcfce7; color: #15803d; }
+    .stock-limited   { background: #fef9c3; color: #92400e; }
+    .stock-out       { background: #fee2e2; color: #b91c1c; }
+    body.dark .stock-available { background: rgba(52,211,153,0.15); color: #4ade80; }
+    body.dark .stock-limited   { background: rgba(251,191,36,0.15); color: #fbbf24; }
+    body.dark .stock-out       { background: rgba(248,113,113,0.15); color: #f87171; }
 
-    .medicine-container{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-      gap:25px;
-      padding:0 40px 40px;
+    .hindi {
+      font-size: 13px;
+      margin-top: 12px;
+      padding: 8px 14px;
+      background: #f0f9ff;
+      border-radius: 8px;
+      color: #374151;
+      display: none;
+      border-left: 3px solid #38bdf8;
+      text-align: left;
     }
+    body.dark .hindi { background: rgba(0,119,182,0.12); color: #cbd5e1; border-color: #90e0ef; }
+    .medicine-card:hover .hindi { display: block; }
 
-    .medicine-card{
-      background:white;
-      padding:24px;
-      border-radius:14px;
-      box-shadow:0 6px 20px rgba(0,0,0,.08);
-      text-align:center;
-      transition:.3s;
+    /* Loading / empty state */
+    .state-msg {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 60px 20px;
+      color: #6b7280;
+      font-size: 15px;
     }
-    body.dark .medicine-card{background:#1e293b}
+    body.dark .state-msg { color: #94a3b8; }
+    .state-msg .state-icon { font-size: 40px; margin-bottom: 12px; }
 
-    .medicine-card:hover{
-      transform:translateY(-4px);
+    .disclaimer {
+      background: #fff7ed;
+      border-left: 5px solid #f97316;
+      margin: 20px 40px;
+      padding: 16px;
+      font-size: 13px;
+      color: #7c2d12;
+      border-radius: 8px;
     }
+    body.dark .disclaimer { background: #2a1c10; color: #fed7aa; }
 
-    .icon{
-      font-size:34px;
-      color:#2563eb;
-      margin-bottom:12px;
-    }
-    body.dark .icon{color:#93c5fd}
+    .note { text-align: center; font-size: 13px; color: #6b7280; padding-bottom: 20px; }
+    body.dark .note { color: #94a3b8; }
 
-    .medicine-card h3{
-      margin:6px 0 12px;
-      font-size:18px;
-      color:#2563eb;
+    /* Live update dot */
+    .live-dot {
+      display: inline-block;
+      width: 8px; height: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+      margin-right: 6px;
+      animation: blink 1.5s infinite;
     }
-    body.dark .medicine-card h3{color:#93c5fd}
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
-    .row{
-      font-size:14px;
-      margin:6px 0;
+    /* Icon map by disease keyword */
+    @media(max-width:600px) {
+      .medicine-container { padding: 0 16px 30px; }
+      .search-wrap, .filter-tabs, .stats-strip { margin-left: 16px; margin-right: 16px; }
+      .disclaimer { margin: 10px 16px; }
     }
-    .label{font-weight:600}
-
-    .stock{
-      margin-top:10px;
-      font-size:13px;
-      color:#15803d;
-      font-weight:600;
-    }
-    body.dark .stock{color:#4ade80}
-
-  
-    .hindi{
-      font-size:13px;
-      margin-top:10px;
-      color:#374151;
-      display:none;
-    }
-    body.dark .hindi{
-      color:#e5e7eb;
-    }
-
-    .medicine-card:hover .hindi{
-      display:block;
-    }
-
-    .disclaimer{
-      background:#fff7ed;
-      border-left:5px solid #f97316;
-      margin:20px 40px;
-      padding:16px;
-      font-size:13px;
-      color:#7c2d12;
-      border-radius:8px;
-    }
-    body.dark .disclaimer{
-      background:#2a1c10;
-      color:#fed7aa;
-    }
-
-    .note{
-      text-align:center;
-      font-size:13px;
-      color:#6b7280;
-      padding-bottom:20px;
-    }
-    body.dark .note{color:#94a3b8}
   </style>
 </head>
-
 <body>
 
 <div class="top-bar">
@@ -173,76 +216,189 @@
 
 <div class="header">
   <h2>Medicine Information</h2>
-  <p>Hover on a card to view information in Hindi</p>
+  <p><span class="live-dot"></span>Live data from hospital pharmacy — hover a card for Hindi info</p>
 </div>
 
-<div class="medicine-container">
+<!-- Stats Strip -->
+<div class="stats-strip" id="statsStrip">
+  <div class="stat-pill" id="statTotal">Loading...</div>
+  <div class="stat-pill" id="statAvail">—</div>
+  <div class="stat-pill" id="statLimited">—</div>
+  <div class="stat-pill" id="statOut">—</div>
+</div>
 
-  <div class="medicine-card">
-    <div class="icon"><i class="fa-solid fa-head-side-cough"></i></div>
-    <h3>Cold & Cough</h3>
-    <div class="row"><span class="label">Medicine:</span> Paracetamol</div>
-    <div class="row"><span class="label">Purpose:</span> Mild cold and body pain relief</div>
-    <div class="stock">Available in Hospital Pharmacy</div>
-    <div class="hindi">जुकाम और खांसी में आराम के लिए उपयोगी</div>
+<!-- Search -->
+<div class="search-wrap">
+  <input type="text" id="searchInput" placeholder="🔍 Search disease or medicine..." oninput="filterCards()">
+</div>
+
+<!-- Filter Tabs -->
+<div class="filter-tabs">
+  <button class="filter-tab active" onclick="setFilter('all', this)">All</button>
+  <button class="filter-tab" onclick="setFilter('available', this)">✅ Available</button>
+  <button class="filter-tab" onclick="setFilter('limited', this)">⚠️ Limited</button>
+  <button class="filter-tab" onclick="setFilter('out', this)">❌ Out of Stock</button>
+</div>
+
+<!-- Medicine Cards Grid -->
+<div class="medicine-container" id="medicineContainer">
+  <div class="state-msg">
+    <div class="state-icon">⏳</div>
+    Loading medicine data...
   </div>
-
-  <div class="medicine-card">
-    <div class="icon"><i class="fa-solid fa-temperature-high"></i></div>
-    <h3>Fever</h3>
-    <div class="row"><span class="label">Medicine:</span> Crocin</div>
-    <div class="row"><span class="label">Purpose:</span> Reduces body temperature</div>
-    <div class="stock">Available in Hospital Pharmacy</div>
-    <div class="hindi">बुखार कम करने और शरीर का तापमान घटाने में सहायक</div>
-  </div>
-
-  <div class="medicine-card">
-    <div class="icon"><i class="fa-solid fa-brain"></i></div>
-    <h3>Headache</h3>
-    <div class="row"><span class="label">Medicine:</span> Ibuprofen</div>
-    <div class="row"><span class="label">Purpose:</span> Headache and neurological pain relief</div>
-    <div class="stock">Limited Stock Available</div>
-    <div class="hindi">सिर दर्द और नसों के दर्द से राहत के लिए</div>
-  </div>
-
-  <div class="medicine-card">
-    <div class="icon"><i class="fa-solid fa-notes-medical"></i></div>
-    <h3>Stomach Pain</h3>
-    <div class="row"><span class="label">Medicine:</span> Antacid</div>
-    <div class="row"><span class="label">Purpose:</span> Acidity and gastric discomfort relief</div>
-    <div class="stock">Available in Hospital Pharmacy</div>
-    <div class="hindi">पेट दर्द, गैस और एसिडिटी में राहत</div>
-  </div>
-
-  <div class="medicine-card">
-    <div class="icon"><i class="fa-solid fa-lungs"></i></div>
-    <h3>Sore Throat</h3>
-    <div class="row"><span class="label">Medicine:</span> Lozenges</div>
-    <div class="row"><span class="label">Purpose:</span> Throat irritation relief</div>
-    <div class="stock">Available in Hospital Pharmacy</div>
-    <div class="hindi">गले की खराश और जलन में आराम</div>
-  </div>
-
 </div>
 
 <div class="disclaimer">
   ⚠️ <b>Medical Disclaimer:</b><br>
   These medicine suggestions are for common symptoms only and are verified by doctors.
-  This does not replace professional medical consultation.
+  This does not replace professional medical consultation. Always consult a doctor before taking any medicine.
 </div>
 
 <p class="note">
-  *Medicine availability may vary depending on hospital pharmacy stock
+  <span class="live-dot"></span> Medicine data is managed live by hospital staff — last updated: <span id="lastUpdated">—</span>
 </p>
 
 <script>
-  function toggleMode(){
-    document.body.classList.toggle("dark");
-    document.querySelector(".toggle").textContent =
-      document.body.classList.contains("dark") ? "☀️" : "🌙";
+const API = 'http://localhost:3000';
+
+let allMedicines = [];
+let currentFilter = 'all';
+
+// Icon map — matches disease keywords to FA icons
+const iconMap = [
+  { keys: ['cold','cough','flu'],          icon: 'fa-head-side-cough' },
+  { keys: ['fever','temperature'],         icon: 'fa-temperature-high' },
+  { keys: ['head','migraine'],             icon: 'fa-brain' },
+  { keys: ['stomach','gastric','acidity'], icon: 'fa-notes-medical' },
+  { keys: ['throat','sore'],              icon: 'fa-lungs' },
+  { keys: ['heart','cardio','chest'],      icon: 'fa-heart-pulse' },
+  { keys: ['bone','ortho','joint'],        icon: 'fa-bone' },
+  { keys: ['skin','derma','rash'],         icon: 'fa-hand-dots' },
+  { keys: ['eye','vision'],               icon: 'fa-eye' },
+  { keys: ['ear'],                        icon: 'fa-ear-deaf' },
+  { keys: ['diabetes','sugar','blood'],    icon: 'fa-syringe' },
+  { keys: ['pressure','bp'],              icon: 'fa-heart' },
+  { keys: ['allerg'],                     icon: 'fa-shield-virus' },
+  { keys: ['pain','ache'],               icon: 'fa-pills' },
+];
+
+function getIcon(disease) {
+  const d = (disease || '').toLowerCase();
+  for (const { keys, icon } of iconMap) {
+    if (keys.some(k => d.includes(k))) return icon;
   }
+  return 'fa-capsules'; // default
+}
+
+function getStockClass(status) {
+  const s = (status || '').toLowerCase();
+  if (s.includes('limited') || s.includes('order')) return 'stock-limited';
+  if (s.includes('out'))                              return 'stock-out';
+  return 'stock-available';
+}
+
+// ── LOAD FROM DB ──
+async function loadMedicines() {
+  try {
+    const res  = await fetch(`${API}/api/medicines`);
+    allMedicines = await res.json();
+    document.getElementById('lastUpdated').textContent = new Date().toLocaleTimeString();
+  } catch (e) {
+    // fallback static data if server offline
+    allMedicines = [
+      { id:1, disease:'Cold & Cough', medicine:'Paracetamol', purpose:'Mild cold and body pain relief', stock_status:'Available in Hospital Pharmacy', hindi_info:'जुकाम और खांसी में आराम के लिए उपयोगी' },
+      { id:2, disease:'Fever',        medicine:'Crocin',      purpose:'Reduces body temperature',       stock_status:'Available in Hospital Pharmacy', hindi_info:'बुखार कम करने और शरीर का तापमान घटाने में सहायक' },
+      { id:3, disease:'Headache',     medicine:'Ibuprofen',   purpose:'Headache and neurological pain', stock_status:'Limited Stock Available',       hindi_info:'सिर दर्द और नसों के दर्द से राहत के लिए' },
+      { id:4, disease:'Stomach Pain', medicine:'Antacid',     purpose:'Acidity and gastric relief',     stock_status:'Available in Hospital Pharmacy', hindi_info:'पेट दर्द, गैस और एसिडिटी में राहत' },
+      { id:5, disease:'Sore Throat',  medicine:'Lozenges',    purpose:'Throat irritation relief',       stock_status:'Available in Hospital Pharmacy', hindi_info:'गले की खराश और जलन में आराम' },
+    ];
+    document.getElementById('lastUpdated').textContent = 'offline (cached data)';
+  }
+  updateStats();
+  renderCards();
+}
+
+function updateStats() {
+  const total   = allMedicines.length;
+  const avail   = allMedicines.filter(m => getStockClass(m.stock_status) === 'stock-available').length;
+  const limited = allMedicines.filter(m => getStockClass(m.stock_status) === 'stock-limited').length;
+  const out     = allMedicines.filter(m => getStockClass(m.stock_status) === 'stock-out').length;
+  document.getElementById('statTotal').textContent   = `💊 ${total} Medicines`;
+  document.getElementById('statAvail').textContent   = `✅ ${avail} Available`;
+  document.getElementById('statLimited').textContent = `⚠️ ${limited} Limited`;
+  document.getElementById('statOut').textContent     = `❌ ${out} Out of Stock`;
+}
+
+function setFilter(filter, el) {
+  currentFilter = filter;
+  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  renderCards();
+}
+
+function filterCards() {
+  renderCards();
+}
+
+function renderCards() {
+  const search  = document.getElementById('searchInput').value.toLowerCase();
+  const container = document.getElementById('medicineContainer');
+
+  let filtered = allMedicines.filter(m => {
+    const matchSearch = !search ||
+      (m.disease  || '').toLowerCase().includes(search) ||
+      (m.medicine || '').toLowerCase().includes(search) ||
+      (m.purpose  || '').toLowerCase().includes(search);
+
+    const stockCls = getStockClass(m.stock_status);
+    const matchFilter =
+      currentFilter === 'all' ||
+      (currentFilter === 'available' && stockCls === 'stock-available') ||
+      (currentFilter === 'limited'   && stockCls === 'stock-limited') ||
+      (currentFilter === 'out'       && stockCls === 'stock-out');
+
+    return matchSearch && matchFilter;
+  });
+
+  if (!filtered.length) {
+    container.innerHTML = `
+      <div class="state-msg">
+        <div class="state-icon">🔍</div>
+        No medicines found matching your search.
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = filtered.map(m => {
+    const icon     = getIcon(m.disease);
+    const stockCls = getStockClass(m.stock_status);
+    return `
+      <div class="medicine-card">
+        <div class="icon"><i class="fa-solid ${icon}"></i></div>
+        <h3>${esc(m.disease)}</h3>
+        <div class="row"><span class="label">Medicine:</span> ${esc(m.medicine)}</div>
+        <div class="row"><span class="label">Purpose:</span> ${esc(m.purpose)}</div>
+        <div class="stock ${stockCls}">${esc(m.stock_status)}</div>
+        ${m.hindi_info ? `<div class="hindi">🇮🇳 ${esc(m.hindi_info)}</div>` : ''}
+      </div>
+    `;
+  }).join('');
+}
+
+function toggleMode() {
+  document.body.classList.toggle('dark');
+  document.querySelector('.toggle').textContent =
+    document.body.classList.contains('dark') ? '☀️' : '🌙';
+}
+
+function esc(s) {
+  return (s||'').replace(/[&<>"']/g, m =>
+    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+// Load on page open, then refresh every 30 seconds to pick up doctor panel changes
+loadMedicines();
+setInterval(loadMedicines, 30000);
 </script>
-
 </body>
-
 </html>
