@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Medicare+ Login</title>
+    <link rel="stylesheet" href="login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+
+<div class="container">
+
+    <!-- LEFT SIDE -->
+    <div class="left-section">
+        <div class="logo">Medicare<span>+</span></div>
+
+        <div class="circle"></div>
+
+        <h2>Smart Healthcare System</h2>
+        <p>Secure patient access for appointments, availability and medical services.</p>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="right-section">
+        <h2>Secure Access</h2>
+        <p class="subtitle">Enter your mobile number to continue</p>
+
+        <input type="text" id="phone" placeholder="Phone Number">
+        <button onclick="sendOTP()">Send OTP</button>
+
+        <div id="otpSection" class="hidden">
+            <input type="text" id="otp" placeholder="Enter OTP">
+            <button onclick="verifyOTP()">Verify OTP</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+const backendURL = "http://localhost:3000";
+
+function toggleTheme(){
+    document.body.classList.toggle("light-mode");
+
+    if(document.body.classList.contains("light-mode")){
+        localStorage.setItem("theme","light");
+        document.querySelector(".theme-toggle").textContent = "🌙";
+    } else {
+        localStorage.setItem("theme","dark");
+        document.querySelector(".theme-toggle").textContent = "☀️";
+    }
+}
+
+window.onload = function(){
+    const savedTheme = localStorage.getItem("theme");
+    if(savedTheme === "light"){
+        document.body.classList.add("light-mode");
+        document.querySelector(".theme-toggle").textContent = "🌙";
+    }
+}
+
+async function sendOTP() {
+    const phone = document.getElementById("phone").value;
+
+    const response = await fetch(`${backendURL}/api/auth/send-otp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone })
+    });
+
+    const data = await response.json();
+    alert("OTP: " + data.otp);
+
+    document.getElementById("otpSection").classList.remove("hidden");
+}
+
+async function verifyOTP() {
+    const phone = document.getElementById("phone").value;
+    const otp = document.getElementById("otp").value;
+
+    const response = await fetch(`${backendURL}/api/auth/verify-otp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone, otp })
+    });
+
+    const data = await response.json();
+
+    if(response.ok){
+        alert("Login Successful!");
+        window.location.href = "dashboard.html";
+    } else {
+        alert(data.message);
+    }
+}
+</script>
+
+</body>
+</html>
