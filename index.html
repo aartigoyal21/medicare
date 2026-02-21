@@ -4,9 +4,12 @@
     <title>MediCare+ | Smart Hospital System</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-</head>
-<body class="light-mode">
+    
 
+</head>
+<body>
+
+<!-- ================= NAVBAR ================= -->
 <nav class="navbar">
     <div class="logo">MediCare+</div>
     <ul class="nav-links">
@@ -18,43 +21,80 @@
         <li><a href="doctor-login.html">🔐 Staff Login</a></li>
     </ul>
     <button id="themeToggle" class="theme-btn">🌙</button>
+
 </nav>
 
+<!-- ================= HERO ================= -->
+<!-- <header class="hero">
+    <div class="overlay">
+        <h1>Smart Hospital Management System</h1>
+        <p>Improving healthcare accessibility through digital innovation.</p>
+        <a href="appointment.html" class="btn">Get Started</a>
+    </div>
+</header> -->
+
 <section class="hero">
+    
     <div class="hero-container">
+
+        <!-- LEFT CONTENT -->
         <div class="hero-text">
             <h1>Smart Hospital Management System</h1>
+
             <p>
                 Improving healthcare accessibility through digital innovation.
                 Book appointments, track queues and manage hospital services easily.
             </p>
+
             <a href="appointment.html" class="hero-btn">
                 Book Appointment →
             </a>
         </div>
 
+        <!-- RIGHT IMAGE -->
         <div class="hero-image">
             <img src="doctor.jpg" alt="Doctor Image">
         </div>
+
     </div>
+
 </section>
 
+
+<!-- BOOK APPOINTMENT SECTION -->
+
 <section class="cta-section">
+
     <div class="cta-container">
+
+        <!-- LEFT TEXT -->
         <div class="cta-text">
             <h2>Book Appointment <br> With 100+ Trusted Doctors</h2>
+
             <p>
                 Easily schedule appointments with experienced doctors and
                 get faster healthcare services without long waiting times.
             </p>
+
+            <!-- <a href="appointment.html" class="cta-btn">
+                Create Account →
+            </a> -->
         </div>
 
+        <!-- RIGHT IMAGE -->
         <div class="cta-image">
             <img src="doctor2.jpg" alt="Medical Equipment">
         </div>
+
     </div>
+
 </section>
 
+
+
+
+
+<!-- ================= SERVICES ================= -->
 <section id="services" class="section light">
     <h2>Our Services</h2>
     <div class="service-box">
@@ -73,9 +113,12 @@
     </div>
 </section>
 
+<!-- ================= SYSTEM FEATURES ================= -->
 <section id="features" class="features">
     <h2>System Features</h2>
+
     <div class="card-container">
+
         <div class="card">
             <h3>Online Appointment</h3>
             <p>Book doctor appointments easily without waiting.</p>
@@ -99,53 +142,51 @@
             <p>View medicines for different diseases.</p>
             <a href="medicines.html" class="card-btn">Open</a>
         </div>
+
     </div>
 </section>
 
+<!-- ================= CONTACT ================= -->
 <section id="contact" class="section light">
     <h2>Contact Us</h2>
-    <p>Email: support@medicare.com</p>
+    <p>Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a8dbddd8d8c7dadce8c5cdccc1cbc9dacd86cbc7c5">[email&#160;protected]</a></p>
     <p>Phone: +91 98765 *****</p>
 </section>
-
+<!-- ================= ABOUT ================= -->
 <section id="about" class="section">
     <h2>About Our Project</h2>
-    <p>
-        Our Smart Hospital Management System is designed to simplify and modernize
-        the healthcare experience for both patients and hospitals. Many patients face
-        long waiting times, lack of information about doctor availability, and difficulty
-        in accessing hospital services efficiently.
+  <p>
+Our Smart Hospital Management System is designed to simplify and modernize
+the healthcare experience for both patients and hospitals. Many patients face
+long waiting times, lack of information about doctor availability, and difficulty
+in accessing hospital services efficiently.
 
-        This platform provides a digital solution where users can book appointments
-        online, track live queue status, check bed availability, and access medicine
-        information before visiting the hospital. By reducing manual processes and
-        improving communication between patients and healthcare providers, our system
-        helps save time, reduce crowding, and enhance overall hospital management.
+This platform provides a digital solution where users can book appointments
+online, track live queue status, check bed availability, and access medicine
+information before visiting the hospital. By reducing manual processes and
+improving communication between patients and healthcare providers, our system
+helps save time, reduce crowding, and enhance overall hospital management.
 
-        Our goal is to make healthcare more accessible, organized, and technology-driven,
-        ensuring faster care and a better experience for everyone.
-    </p>
+Our goal is to make healthcare more accessible, organized, and technology-driven,
+ensuring faster care and a better experience for everyone.
+</p>
+
+
 </section>
 
+<!-- ================= FOOTER ================= -->
 <footer class="footer">
     © 2026 MediCare+ | Smart Hospital Management System | 🏥 Bringing Hospitals Closer to You.
 </footer>
 
-<script>
+<!-- ================= DARK LIGHT mode toggle ================= -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+
 const toggleBtn = document.getElementById("themeToggle");
+
 
 toggleBtn.textContent = "🌙";
 
 toggleBtn.addEventListener("click", () => {
+
     document.body.classList.toggle("light-mode");
-
-    if(document.body.classList.contains("light-mode")){
-        toggleBtn.textContent = "🌙";
-    } else {
-        toggleBtn.textContent = "☀️";
-    }
-});
-</script>
-
-</body>
-</html>
