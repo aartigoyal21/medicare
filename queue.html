@@ -4,408 +4,471 @@
   <title>Live Queue | MediCare+</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 
     :root {
-      --bg: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      --bg:   linear-gradient(135deg,#0f2027,#203a43,#2c5364);
       --card: rgba(255,255,255,0.07);
-      --card-border: rgba(144,224,239,0.18);
-      --accent: #90e0ef;
-      --accent2: #00b4d8;
-      --text: #ffffff;
-      --subtext: #b0d8e8;
-      --active-glow: 0 0 40px rgba(0,229,255,0.45);
-      --panel: rgba(0,0,0,0.25);
+      --bdr:  rgba(144,224,239,0.18);
+      --acc:  #90e0ef;
+      --acc2: #00b4d8;
+      --sub:  #b0d8e8;
     }
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
+    body { font-family:'Poppins',sans-serif; background:var(--bg); color:#fff; min-height:100vh; overflow-x:hidden; }
 
-    .navbar {
-      position: fixed;
-      top: 0; width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 18px 60px;
-      background: rgba(0,0,0,0.4);
-      backdrop-filter: blur(14px);
-      z-index: 1000;
-      border-bottom: 1px solid rgba(144,224,239,0.12);
-    }
-    .logo { font-size: 22px; font-weight: 700; color: #90e0ef; }
-    .nav-links { list-style: none; display: flex; gap: 28px; }
-    .nav-links a { text-decoration: none; color: white; font-weight: 500; transition: 0.3s; }
-    .nav-links a:hover { color: #00e5ff; }
+    /* ── NAVBAR ── */
+    .navbar { position:fixed;top:0;width:100%;display:flex;justify-content:space-between;align-items:center;padding:18px 60px;background:rgba(0,0,0,0.42);backdrop-filter:blur(14px);z-index:1000;border-bottom:1px solid rgba(144,224,239,0.12); }
+    .logo   { font-size:22px;font-weight:700;color:#90e0ef; }
+    .nav-links { list-style:none;display:flex;gap:28px; }
+    .nav-links a { text-decoration:none;color:#fff;font-weight:500;transition:.3s; }
+    .nav-links a:hover { color:#00e5ff; }
 
-    .hero {
-      padding: 130px 60px 50px;
-      text-align: center;
-    }
-    .hero h1 { font-size: 44px; font-weight: 700; color: #90e0ef; margin-bottom: 10px; }
-    .hero p  { color: #b0d8e8; font-size: 16px; }
+    /* ── HERO ── */
+    .hero { padding:130px 60px 36px;text-align:center; }
+    .hero h1 { font-size:42px;font-weight:700;color:#90e0ef;margin-bottom:10px; }
+    .hero p  { color:var(--sub);font-size:15px; }
 
-    .main-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 30px 60px;
-    }
+    .live-dot { display:inline-block;width:8px;height:8px;background:#22c55e;border-radius:50%;margin-right:6px;animation:blink 1.4s infinite; }
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
 
-    .panel {
-      background: var(--card);
-      border: 1px solid var(--card-border);
-      backdrop-filter: blur(18px);
-      border-radius: 22px;
-      padding: 36px;
-    }
-    .panel h2 {
-      font-size: 18px;
-      font-weight: 600;
-      color: #90e0ef;
-      margin-bottom: 28px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    /* ── TICKER ── */
+    .ticker-bar { background:rgba(0,180,216,.14);border-top:1px solid rgba(0,229,255,.2);border-bottom:1px solid rgba(0,229,255,.2);padding:10px 0;overflow:hidden;margin-bottom:28px; }
+    .ticker-track { display:flex;gap:60px;white-space:nowrap;animation:ticker 26s linear infinite; }
+    @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    .ticker-item { font-size:13px;color:#90e0ef; }
+    .ticker-item span { color:#fff;font-weight:600; }
 
+    /* ── DEPT TABS ── */
+    .tabs-wrap  { max-width:1100px;margin:0 auto 26px;padding:0 30px; }
+    .tabs-label { font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--sub);margin-bottom:12px; }
+    .dept-tabs  { display:flex;gap:10px;flex-wrap:wrap; }
+    .dept-tab   {
+      padding:10px 18px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(144,224,239,.2);
+      border-radius:30px;
+      font-family:'Poppins',sans-serif;font-size:13px;font-weight:500;
+      color:var(--sub);cursor:pointer;transition:.25s;
+      display:flex;align-items:center;gap:7px;
+    }
+    .dept-tab:hover { background:rgba(0,180,216,.15);color:#fff;border-color:rgba(0,229,255,.35); }
+    .dept-tab.active { background:rgba(0,180,216,.25);border-color:rgba(0,229,255,.55);color:#90e0ef;box-shadow:0 0 16px rgba(0,180,216,.2); }
+    .tbadge { background:rgba(0,229,255,.18);color:#90e0ef;font-size:11px;font-weight:700;padding:2px 7px;border-radius:10px; }
+    .dept-tab.active .tbadge { background:rgba(0,229,255,.32); }
+
+    /* ── MAIN GRID ── */
+    .main-grid { display:grid;grid-template-columns:1fr 1fr;gap:26px;max-width:1100px;margin:0 auto;padding:0 30px 60px; }
+
+    .panel { background:var(--card);border:1px solid var(--bdr);backdrop-filter:blur(18px);border-radius:22px;padding:32px; }
+    .panel h2 { font-size:17px;font-weight:600;color:#90e0ef;margin-bottom:22px;display:flex;align-items:center;gap:10px; }
+
+    /* ── NOW SERVING ── */
     .serving-panel {
-      grid-column: 1 / -1;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 30px;
-      background: linear-gradient(135deg, rgba(0,100,160,0.35), rgba(0,30,60,0.6));
-      border: 1px solid rgba(0,229,255,0.3);
+      grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:28px;
+      background:linear-gradient(135deg,rgba(0,100,160,.35),rgba(0,30,60,.65));
+      border:1px solid rgba(0,229,255,.3);
     }
+    .sl { flex:1; }
+    .sl-label { font-size:13px;text-transform:uppercase;letter-spacing:3px;color:#90e0ef;margin-bottom:6px; }
+    .sl-dept  { font-size:15px;color:var(--sub);margin-bottom:8px;font-weight:500; }
+    .sl-num   {
+      font-family:'Space Mono',monospace;font-size:96px;font-weight:700;line-height:1;color:#fff;
+      text-shadow:0 0 40px rgba(0,229,255,.7),0 0 80px rgba(0,229,255,.3);transition:.4s;
+    }
+    .sl-num.pulse { animation:numPulse .6s ease; }
+    @keyframes numPulse{0%{transform:scale(1)}40%{transform:scale(1.09);color:#00e5ff}100%{transform:scale(1)}}
+    .sl-meta { margin-top:12px;font-size:13px;color:var(--sub); }
+    .sl-meta span { color:#fff;font-weight:600; }
+    .sl-tag  { font-size:11px;margin-left:10px;color:rgba(144,224,239,.4); }
 
-    .serving-left { flex: 1; }
-    .serving-label { font-size: 14px; text-transform: uppercase; letter-spacing: 3px; color: #90e0ef; margin-bottom: 10px; }
-    .serving-number {
-      font-family: 'Space Mono', monospace;
-      font-size: 100px;
-      font-weight: 700;
-      line-height: 1;
-      color: #ffffff;
-      text-shadow: 0 0 40px rgba(0,229,255,0.7), 0 0 80px rgba(0,229,255,0.3);
-      transition: all 0.4s;
-    }
-    .serving-number.pulse {
-      animation: numPulse 0.6s ease;
-    }
-    @keyframes numPulse {
-      0%   { transform: scale(1);   }
-      40%  { transform: scale(1.12); color: #00e5ff; }
-      100% { transform: scale(1);   }
-    }
+    .sr { text-align:center;min-width:176px; }
+    .ring-wrap { position:relative;display:inline-block; }
+    .ring-wrap svg { transform:rotate(-90deg); }
+    .ring-bg { fill:none;stroke:rgba(255,255,255,.1);stroke-width:8; }
+    .ring-fg { fill:none;stroke:#00b4d8;stroke-width:8;stroke-linecap:round;transition:stroke-dashoffset .8s ease; }
+    .ring-lbl { position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center; }
+    .rl-n { font-family:'Space Mono',monospace;font-size:26px;font-weight:700;color:#90e0ef; }
+    .rl-t { font-size:10px;color:var(--sub); }
 
-    .serving-meta { margin-top: 14px; color: var(--subtext); font-size: 14px; }
-    .serving-meta span { color: white; font-weight: 600; }
+    /* ── STATS ── */
+    .stats-row { grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:14px; }
+    .scard { background:var(--card);border:1px solid var(--bdr);border-radius:16px;padding:20px;text-align:center;transition:.25s; }
+    .scard:hover { transform:translateY(-4px); }
+    .scard .ic { font-size:24px;margin-bottom:8px; }
+    .scard .sv { font-family:'Space Mono',monospace;font-size:28px;font-weight:700;color:#90e0ef; }
+    .scard .sl2{ font-size:11px;color:var(--sub);margin-top:4px; }
 
-    .serving-right { text-align: center; min-width: 180px; }
-    .dept-badge {
-      display: inline-block;
-      padding: 8px 22px;
-      border-radius: 30px;
-      background: rgba(0,180,216,0.25);
-      border: 1px solid rgba(0,229,255,0.4);
-      font-size: 13px;
-      color: #90e0ef;
-      margin-bottom: 18px;
-    }
-    .progress-ring-wrap { position: relative; display: inline-block; }
-    .progress-ring-wrap svg { transform: rotate(-90deg); }
-    .ring-bg { fill: none; stroke: rgba(255,255,255,0.1); stroke-width: 8; }
-    .ring-fg { fill: none; stroke: #00b4d8; stroke-width: 8; stroke-linecap: round; transition: stroke-dashoffset 0.8s ease; }
-    .ring-label {
-      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-      text-align: center;
-    }
-    .ring-label .rl-num { font-family: 'Space Mono', monospace; font-size: 26px; font-weight: 700; color: #90e0ef; }
-    .ring-label .rl-text { font-size: 10px; color: var(--subtext); }
+    /* ── QUEUE LIST ── */
+    .qlist { display:flex;flex-direction:column;gap:9px;max-height:430px;overflow-y:auto;padding-right:3px; }
+    .qlist::-webkit-scrollbar { width:4px; }
+    .qlist::-webkit-scrollbar-thumb { background:rgba(144,224,239,.3);border-radius:10px; }
 
-    .form-group { margin-bottom: 18px; }
-    .form-group label { display: block; font-size: 13px; color: var(--subtext); margin-bottom: 8px; }
-    .form-group input,
-    .form-group select {
-      width: 100%;
-      padding: 12px 16px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(144,224,239,0.25);
-      border-radius: 12px;
-      color: white;
-      font-family: 'Poppins', sans-serif;
-      font-size: 14px;
-      outline: none;
-      transition: 0.3s;
-    }
-    .form-group input:focus,
-    .form-group select:focus { border-color: #00b4d8; background: rgba(0,180,216,0.12); }
-    .form-group select option { background: #1a3a4a; }
+    .qi { display:flex;align-items:center;gap:14px;padding:13px 16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:11px;transition:.25s;animation:qiIn .35s ease; }
+    @keyframes qiIn{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
+    .qi.act { background:rgba(0,180,216,.18);border-color:rgba(0,229,255,.4);box-shadow:0 0 18px rgba(0,229,255,.14); }
+    .qi-n   { font-family:'Space Mono',monospace;font-size:19px;font-weight:700;color:#90e0ef;min-width:42px; }
+    .qi-n.an{ color:#00e5ff;text-shadow:0 0 14px rgba(0,229,255,.7); }
+    .qi-i   { flex:1; }
+    .qi-nm  { font-size:14px;font-weight:600; }
+    .qi-d   { font-size:12px;color:var(--sub); }
+    .qi-s   { font-size:11px;padding:4px 11px;border-radius:20px;font-weight:600; }
+    .ss { background:rgba(0,229,255,.2);color:#00e5ff;border:1px solid rgba(0,229,255,.4); }
+    .sw { background:rgba(255,255,255,.07);color:#94a3b8; }
+    .sd { background:rgba(52,211,153,.14);color:#34d399; }
 
-    .btn-get-token {
-      width: 100%;
-      padding: 14px;
-      background: linear-gradient(45deg, #00b4d8, #90e0ef);
-      color: #003049;
-      font-family: 'Poppins', sans-serif;
-      font-size: 15px;
-      font-weight: 700;
-      border: none;
-      border-radius: 14px;
-      cursor: pointer;
-      transition: 0.3s;
-      margin-top: 6px;
-    }
-    .btn-get-token:hover { transform: translateY(-3px); box-shadow: 0 0 28px rgba(0,229,255,0.5); }
-    .btn-get-token:active { transform: scale(0.98); }
+    .q-empty { text-align:center;padding:40px 0;font-size:14px;color:var(--sub); }
 
-    .token-display { display: none; margin-top: 22px; }
-    .token-display.show { display: block; animation: slideUp 0.5s ease; }
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
+    /* ── OVERVIEW CARDS ── */
+    .ov-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px; }
+    .ov-card {
+      background:rgba(255,255,255,.05);border:1px solid var(--bdr);
+      border-radius:14px;padding:20px;text-align:center;cursor:pointer;transition:.25s;
     }
-    .token-card {
-      background: linear-gradient(135deg, rgba(0,180,216,0.2), rgba(0,50,80,0.4));
-      border: 1px solid rgba(0,229,255,0.4);
-      border-radius: 16px;
-      padding: 24px;
-      text-align: center;
-    }
-    .token-card .tc-label { font-size: 12px; text-transform: uppercase; letter-spacing: 3px; color: #90e0ef; }
-    .token-card .tc-num {
-      font-family: 'Space Mono', monospace;
-      font-size: 56px;
-      font-weight: 700;
-      color: white;
-      text-shadow: 0 0 30px rgba(0,229,255,0.6);
-      margin: 4px 0;
-    }
-    .token-card .tc-name { font-size: 14px; color: var(--subtext); }
-    .token-card .tc-dept { font-size: 13px; color: #90e0ef; margin-top: 4px; }
-    .tc-wait {
-      margin-top: 14px;
-      padding: 10px 18px;
-      background: rgba(0,0,0,0.3);
-      border-radius: 10px;
-      font-size: 13px;
-      color: var(--subtext);
-    }
-    .tc-wait span { color: #00e5ff; font-weight: 700; }
+    .ov-card:hover { background:rgba(0,180,216,.14);border-color:rgba(0,229,255,.35);transform:translateY(-3px); }
+    .ov-name { font-size:14px;font-weight:600;color:#90e0ef;margin-bottom:8px; }
+    .ov-num  { font-family:'Space Mono',monospace;font-size:38px;font-weight:700;color:#fff;text-shadow:0 0 20px rgba(0,229,255,.45); }
+    .ov-lbl  { font-size:11px;color:var(--sub);margin-bottom:4px; }
+    .ov-w    { font-size:13px;color:var(--sub);margin-top:6px; }
+    .ov-w span { color:#fbbf24;font-weight:700; }
 
-    .queue-list { display: flex; flex-direction: column; gap: 10px; max-height: 360px; overflow-y: auto; padding-right: 4px; }
-    .queue-list::-webkit-scrollbar { width: 5px; }
-    .queue-list::-webkit-scrollbar-track { background: transparent; }
-    .queue-list::-webkit-scrollbar-thumb { background: rgba(144,224,239,0.3); border-radius: 10px; }
+    /* ── INFO BOX ── */
+    .info-box { background:rgba(0,180,216,.08);border:1px solid rgba(0,229,255,.18);border-radius:14px;padding:18px 20px;font-size:13px;color:var(--sub);line-height:1.75; }
+    .info-box strong { color:#90e0ef; }
+    .info-box a { color:#90e0ef; }
 
-    .queue-item {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 14px 18px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 12px;
-      transition: 0.3s;
-      animation: fadeIn 0.4s ease;
+    .book-btn {
+      display:block;width:100%;margin-top:18px;padding:14px;
+      background:linear-gradient(45deg,#00b4d8,#90e0ef);color:#003049;
+      font-family:'Poppins',sans-serif;font-size:15px;font-weight:700;
+      border:none;border-radius:14px;cursor:pointer;text-align:center;
+      text-decoration:none;transition:.3s;
     }
-    @keyframes fadeIn { from { opacity:0; transform: translateX(-10px); } to { opacity:1; transform: none; } }
-    .queue-item.active-item {
-      background: rgba(0,180,216,0.18);
-      border-color: rgba(0,229,255,0.4);
-      box-shadow: 0 0 18px rgba(0,229,255,0.15);
-    }
-    .qi-num {
-      font-family: 'Space Mono', monospace;
-      font-size: 20px;
-      font-weight: 700;
-      color: #90e0ef;
-      min-width: 44px;
-    }
-    .qi-num.active-num { color: #00e5ff; text-shadow: 0 0 14px rgba(0,229,255,0.7); }
-    .qi-info { flex: 1; }
-    .qi-name { font-size: 14px; font-weight: 600; }
-    .qi-dept { font-size: 12px; color: var(--subtext); }
-    .qi-status {
-      font-size: 11px;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-weight: 600;
-    }
-    .status-serving { background: rgba(0,229,255,0.2); color: #00e5ff; border: 1px solid rgba(0,229,255,0.4); }
-    .status-waiting { background: rgba(255,255,255,0.07); color: #94a3b8; }
-    .status-done    { background: rgba(52,211,153,0.15); color: #34d399; }
+    .book-btn:hover { box-shadow:0 0 26px rgba(0,229,255,.5);transform:translateY(-2px); }
 
-    .stats-row {
-      grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-    }
-    .stat-card {
-      background: var(--card);
-      border: 1px solid var(--card-border);
-      backdrop-filter: blur(12px);
-      border-radius: 16px;
-      padding: 22px;
-      text-align: center;
-    }
-    .stat-card .sc-icon { font-size: 26px; margin-bottom: 8px; }
-    .stat-card .sc-val {
-      font-family: 'Space Mono', monospace;
-      font-size: 30px;
-      font-weight: 700;
-      color: #90e0ef;
-    }
-    .stat-card .sc-label { font-size: 12px; color: var(--subtext); margin-top: 4px; }
+    /* ── ERROR BANNER ── */
+    .err-banner { display:none;background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.35);border-radius:12px;padding:14px 20px;font-size:13px;color:#ff8f8f;margin-bottom:22px;text-align:center;grid-column:1/-1; }
 
-    .admin-toggle {
-      position: fixed;
-      bottom: 28px; right: 28px;
-      background: linear-gradient(135deg, #00b4d8, #0077b6);
-      color: white;
-      border: none;
-      padding: 12px 22px;
-      border-radius: 50px;
-      font-family: 'Poppins', sans-serif;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 6px 24px rgba(0,0,0,0.4);
-      z-index: 900;
-      transition: 0.3s;
-    }
-    .admin-toggle:hover { transform: translateY(-3px); box-shadow: 0 0 24px rgba(0,229,255,0.5); }
+    /* ── TOAST ── */
+    .toast { position:fixed;bottom:28px;right:28px;padding:13px 20px;border-radius:12px;font-size:14px;font-weight:600;z-index:9999;transform:translateY(70px);opacity:0;transition:all .4s cubic-bezier(.34,1.4,.64,1);pointer-events:none; }
+    .toast.show { transform:translateY(0);opacity:1; }
+    .t-s { background:rgba(52,211,153,.92);color:#003049; }
+    .t-i { background:rgba(0,180,216,.92);color:#003049; }
+    .t-e { background:rgba(248,113,113,.92);color:#fff; }
 
-    .admin-drawer {
-      position: fixed;
-      bottom: -100%;
-      left: 50%; transform: translateX(-50%);
-      width: min(520px, 95vw);
-      background: rgba(10,25,47,0.97);
-      border: 1px solid rgba(0,229,255,0.3);
-      border-radius: 24px 24px 0 0;
-      padding: 30px;
-      z-index: 950;
-      transition: bottom 0.45s cubic-bezier(.34,1.4,.64,1);
-      backdrop-filter: blur(20px);
-    }
-    .admin-drawer.open { bottom: 0; }
-    .admin-drawer h3 { color: #90e0ef; margin-bottom: 20px; text-align: center; }
-    .admin-row { display: flex; gap: 12px; align-items: center; margin-bottom: 16px; }
-    .admin-row label { font-size: 13px; color: var(--subtext); min-width: 140px; }
-    .admin-row input[type=range] { flex: 1; accent-color: #00b4d8; }
-    .admin-row span { font-family: 'Space Mono', monospace; font-size: 16px; color: #90e0ef; min-width: 32px; text-align: right; }
-    .admin-close { display: block; width: 100%; margin-top: 10px; padding: 10px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; color: white; font-family: 'Poppins',sans-serif; cursor: pointer; font-size: 13px; }
-
-    .ticker-bar {
-      background: rgba(0,180,216,0.15);
-      border-top: 1px solid rgba(0,229,255,0.2);
-      border-bottom: 1px solid rgba(0,229,255,0.2);
-      padding: 10px 0;
-      overflow: hidden;
-      margin-bottom: 36px;
-    }
-    .ticker-track {
-      display: flex;
-      gap: 60px;
-      white-space: nowrap;
-      animation: ticker 22s linear infinite;
-    }
-    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-    .ticker-item { font-size: 13px; color: #90e0ef; }
-    .ticker-item span { color: white; font-weight: 600; }
-
-    .toast {
-      position: fixed;
-      top: 90px; right: 30px;
-      background: rgba(0,180,216,0.9);
-      color: white;
-      padding: 14px 22px;
-      border-radius: 14px;
-      font-size: 14px;
-      font-weight: 600;
-      z-index: 9999;
-      transform: translateX(130%);
-      transition: transform 0.4s cubic-bezier(.34,1.4,.64,1);
-      backdrop-filter: blur(10px);
-    }
-    .toast.show { transform: translateX(0); }
-
-    @media (max-width: 750px) {
-      .main-grid { grid-template-columns: 1fr; }
-      .serving-panel { flex-direction: column; text-align: center; }
-      .serving-number { font-size: 72px; }
-      .stats-row { grid-template-columns: repeat(2, 1fr); }
-      .navbar { padding: 16px 24px; }
-      .hero { padding: 110px 24px 30px; }
-      .hero h1 { font-size: 30px; }
+    @media(max-width:760px){
+      .main-grid{grid-template-columns:1fr;}
+      .serving-panel{flex-direction:column;text-align:center;}
+      .sl-num{font-size:70px;}
+      .stats-row{grid-template-columns:repeat(2,1fr);}
+      .navbar{padding:16px 20px;}
+      .hero{padding:110px 20px 28px;}
+      .hero h1{font-size:28px;}
+      .tabs-wrap,.main-grid{padding-left:16px;padding-right:16px;}
     }
   </style>
 </head>
 <body>
+
 <nav class="navbar">
   <div class="logo">MediCare+</div>
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
-    <li><a href="appointment.html">Appointments</a></li>
-    <li><a href="queue.html">Queue</a></li>
+    <li><a href="appointment.html">Book Appointment</a></li>
   </ul>
 </nav>
 
 <div class="hero">
-  <h1>🏥 Live Queue System</h1>
-  <p>Real-time token tracking — know your position, save your time</p>
+  <h1>🏥 Live Queue Status</h1>
+  <p><span class="live-dot"></span>Per-department real-time queue — refreshes every 5 seconds</p>
 </div>
 
 <div class="ticker-bar">
   <div class="ticker-track" id="tickerTrack"></div>
 </div>
 
-<div class="main-grid">
-  ...
+<!-- ── DEPARTMENT TABS ── -->
+<div class="tabs-wrap">
+  <div class="tabs-label">📋 Select a department to view its live queue</div>
+  <div class="dept-tabs" id="deptTabs">
+    <div class="dept-tab active" onclick="selectDept('all',this)" data-dept="all">🏥 All Departments</div>
+    <div class="dept-tab" onclick="selectDept('Cardiology',this)"      data-dept="Cardiology">❤️ Cardiology <span class="tbadge" id="b-Cardiology">0</span></div>
+    <div class="dept-tab" onclick="selectDept('Dermatology',this)"     data-dept="Dermatology">👨‍⚕️ Dermatology <span class="tbadge" id="b-Dermatology">0</span></div>
+    <div class="dept-tab" onclick="selectDept('Neurology',this)"       data-dept="Neurology">🧠 Neurology <span class="tbadge" id="b-Neurology">0</span></div>
+    <div class="dept-tab" onclick="selectDept('Orthopedics',this)"     data-dept="Orthopedics">🦴 Orthopedics <span class="tbadge" id="b-Orthopedics">0</span></div>
+    <div class="dept-tab" onclick="selectDept('Pediatrics',this)"      data-dept="Pediatrics">👶 Pediatrics <span class="tbadge" id="b-Pediatrics">0</span></div>
+    <div class="dept-tab" onclick="selectDept('General Medicine',this)" data-dept="General Medicine">💊 General Medicine <span class="tbadge" id="b-General Medicine">0</span></div>
+  </div>
 </div>
 
+<!-- ── MAIN GRID ── -->
+<div class="main-grid">
+
+  <div class="err-banner" id="errBanner">
+    ⚠️ Cannot connect to server. Make sure <strong>node server.js</strong> is running on port 3000.
+  </div>
+
+  <!-- NOW SERVING -->
+  <div class="panel serving-panel">
+    <div class="sl">
+      <div class="sl-label"><span class="live-dot"></span>Now Serving</div>
+      <div class="sl-dept" id="slDept">All Departments</div>
+      <div class="sl-num"  id="nowServing">--</div>
+      <div class="sl-meta">
+        Waiting: <span id="waitCount">0</span> &nbsp;|&nbsp; Served: <span id="doneCount">0</span>
+        <span class="sl-tag">↻ auto 5s</span>
+      </div>
+    </div>
+    <div class="sr">
+      <div class="ring-wrap">
+        <svg width="110" height="110" viewBox="0 0 110 110">
+          <circle class="ring-bg" cx="55" cy="55" r="46"/>
+          <circle class="ring-fg" id="ringFg" cx="55" cy="55" r="46" stroke-dasharray="289" stroke-dashoffset="289"/>
+        </svg>
+        <div class="ring-lbl"><div class="rl-n" id="ringNum">0</div><div class="rl-t">in queue</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="scard"><div class="ic">✅</div><div class="sv" id="stDone">0</div><div class="sl2">Served Today</div></div>
+    <div class="scard"><div class="ic">⏳</div><div class="sv" id="stWait">0</div><div class="sl2">Waiting</div></div>
+    <div class="scard"><div class="ic">🎫</div><div class="sv" id="stTotal">0</div><div class="sl2">Total Tokens</div></div>
+    <div class="scard"><div class="ic">🕐</div><div class="sv" id="stETA">—</div><div class="sl2">Est. Clear</div></div>
+  </div>
+
+  <!-- LEFT: overview or dept queue list -->
+  <div class="panel">
+    <h2 id="leftTitle">📋 All Departments Overview</h2>
+    <div id="leftContent"><div class="q-empty">Loading...</div></div>
+  </div>
+
+  <!-- RIGHT: info + book link -->
+  <div class="panel">
+    <h2>ℹ️ How to Use</h2>
+    <div class="info-box">
+      <strong>1. Book an appointment</strong> on the Appointments page.<br><br>
+      <strong>2. A token is automatically issued</strong> for your department — you'll see it in a popup.<br><br>
+      <strong>3. Come back here and select your department tab</strong> to watch the live queue.<br><br>
+      <strong>4. When "Now Serving" shows your number</strong>, proceed to the counter.<br><br>
+      <strong>5. Each department has its own token list</strong> starting from #01 independently.
+    </div>
+    <a href="appointment.html" class="book-btn">📅 Book Appointment & Get Token →</a>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
 <script>
-const state = {
-  currentToken: 5,
-  avgMin: 5,
-  queue: [],
-  nextTokenNum: null,
-  tokenCounter: 1
-};
+const API     = 'http://localhost:3000';
+const AVG_MIN = 5;
+const DEPTS   = ['Cardiology','Dermatology','Neurology','Orthopedics','Pediatrics','General Medicine'];
 
-const demoNames = ['Ravi Sharma','Priya Singh','Arjun Patel','Meena Kapoor','Suresh Kumar'];
-const demoDepts = ['❤️ Cardiology','💊 General Medicine','🧠 Neurology','👨‍⚕️ Dermatology','👶 Pediatrics'];
+let currentDept = 'all';
+let deptQueue   = [];
+let summary     = [];
+let prevServing = '--';
 
-function seedQueue() {
-  state.tokenCounter = 1;
-  state.queue = [];
-  for (let i = 1; i <= state.currentToken - 1 && i <= 5; i++) {
-    state.queue.push({ id: i, name: demoNames[(i-1)%5], dept: demoDepts[(i-1)%5], status: 'done' });
-    state.tokenCounter++;
-  }
-  state.queue.push({ id: state.currentToken, name: demoNames[state.currentToken % 5], dept: demoDepts[state.currentToken % 5], status: 'serving' });
-  state.tokenCounter = state.currentToken + 1;
-  for (let i = 0; i < 3; i++) {
-    state.queue.push({ id: state.tokenCounter, name: demoNames[i%5], dept: demoDepts[(i+2)%5], status: 'waiting' });
-    state.tokenCounter++;
+// ── INIT ──────────────────────────────────────
+buildTicker();
+loadData();
+setInterval(loadData, 5000);
+
+// ── SELECT DEPT ───────────────────────────────
+function selectDept(dept, el) {
+  currentDept = dept;
+  document.querySelectorAll('.dept-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('slDept').textContent = dept === 'all' ? 'All Departments' : dept;
+  prevServing = '--'; // reset pulse tracking on dept change
+  loadData();
+}
+
+// ── LOAD ──────────────────────────────────────
+async function loadData() {
+  try {
+    // Always fetch summary so badges stay updated
+    const sr = await fetch(`${API}/api/queue/summary`);
+    summary  = await sr.json();
+    updateBadges();
+
+    if (currentDept === 'all') {
+      renderOverview();
+      updateStatsAll();
+    } else {
+      const dr = await fetch(`${API}/api/queue?department=${encodeURIComponent(currentDept)}`);
+      deptQueue = await dr.json();
+      renderDeptList();
+      updateStatsDept();
+    }
+
+    document.getElementById('errBanner').style.display = 'none';
+  } catch(e) {
+    document.getElementById('errBanner').style.display = 'block';
   }
 }
 
-seedQueue();
-renderAll();
-buildTicker();
-updateClock();
-setInterval(updateClock, 30000);
+// ── BADGES ────────────────────────────────────
+function updateBadges() {
+  DEPTS.forEach(dept => {
+    const row = summary.find(r => r.department === dept);
+    const el  = document.getElementById('b-' + dept);
+    if (el) el.textContent = row ? (row.waiting_count || 0) : 0;
+  });
+}
+
+// ── ALL-DEPT OVERVIEW ─────────────────────────
+function renderOverview() {
+  document.getElementById('leftTitle').textContent = '📋 All Departments Overview';
+
+  if (!summary.length) {
+    document.getElementById('leftContent').innerHTML = '<div class="q-empty">No active queues today. Tokens are issued when appointments are booked.</div>';
+    return;
+  }
+
+  document.getElementById('leftContent').innerHTML = `<div class="ov-grid">${
+    DEPTS.map(dept => {
+      const row = summary.find(r => r.department === dept);
+      const serving = row?.now_serving ?? '--';
+      const waiting = row?.waiting_count ?? 0;
+      const emojis  = {'Cardiology':'❤️','Dermatology':'👨‍⚕️','Neurology':'🧠','Orthopedics':'🦴','Pediatrics':'👶','General Medicine':'💊'};
+      return `<div class="ov-card" onclick="clickCard('${dept}')">
+        <div class="ov-name">${emojis[dept]||'🏥'} ${dept}</div>
+        <div class="ov-lbl">Now Serving</div>
+        <div class="ov-num">${serving === '--' || serving === null ? '--' : String(serving).padStart(2,'0')}</div>
+        <div class="ov-w">⏳ <span>${waiting}</span> waiting</div>
+      </div>`;
+    }).join('')
+  }</div>`;
+}
+
+function clickCard(dept) {
+  const tab = document.querySelector(`.dept-tab[data-dept="${dept}"]`);
+  if (tab) selectDept(dept, tab);
+}
+
+function updateStatsAll() {
+  const totalWait  = summary.reduce((s,r) => s + (r.waiting_count||0), 0);
+  const totalDone  = summary.reduce((s,r) => s + (r.done_count||0),    0);
+  const totalAll   = summary.reduce((s,r) => s + (r.total_count||0),   0);
+
+  document.getElementById('nowServing').textContent = '--';
+  document.getElementById('waitCount').textContent  = totalWait;
+  document.getElementById('doneCount').textContent  = totalDone;
+  document.getElementById('stDone').textContent     = totalDone;
+  document.getElementById('stWait').textContent     = totalWait;
+  document.getElementById('stTotal').textContent    = totalAll;
+  document.getElementById('stETA').textContent      = eta(totalWait);
+
+  setRing(totalWait, totalAll);
+}
+
+// ── DEPT QUEUE LIST ───────────────────────────
+function renderDeptList() {
+  document.getElementById('leftTitle').textContent = `📋 ${currentDept} Queue`;
+
+  if (!deptQueue.length) {
+    document.getElementById('leftContent').innerHTML =
+      '<div class="q-empty">No tokens in this department yet today.<br><small>Tokens appear here when patients book appointments.</small></div>';
+    return;
+  }
+
+  const items = deptQueue.slice(-15).map(q => {
+    const isServ = q.status === 'serving';
+    const isDone = q.status === 'done';
+    return `<div class="qi ${isServ?'act':''}">
+      <div class="qi-n ${isServ?'an':''}">#${String(q.token_number).padStart(2,'0')}</div>
+      <div class="qi-i">
+        <div class="qi-nm">${esc(q.patient_name)}</div>
+        <div class="qi-d">${esc(q.department)}</div>
+      </div>
+      <div class="qi-s ${isServ?'ss':isDone?'sd':'sw'}">
+        ${isServ?'🟢 Now':isDone?'✓ Done':'⏳ Wait'}
+      </div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('leftContent').innerHTML = `<div class="qlist" id="qlistEl">${items}</div>`;
+  const el = document.getElementById('qlistEl');
+  if (el) el.scrollTop = el.scrollHeight;
+}
+
+function updateStatsDept() {
+  const serving = deptQueue.find(q => q.status === 'serving');
+  const waiting = deptQueue.filter(q => q.status === 'waiting').length;
+  const done    = deptQueue.filter(q => q.status === 'done').length;
+  const total   = deptQueue.length;
+
+  // Determine display number
+  let cur = '--';
+  if (serving) {
+    cur = String(serving.token_number).padStart(2,'0');
+  } else {
+    const doneList = deptQueue.filter(q => q.status === 'done');
+    if (doneList.length) cur = String(doneList[doneList.length-1].token_number).padStart(2,'0');
+  }
+
+  // Pulse and toast on change
+  const el = document.getElementById('nowServing');
+  if (cur !== prevServing && prevServing !== '--') {
+    el.classList.remove('pulse'); void el.offsetWidth; el.classList.add('pulse');
+    showToast(`📢 Now serving #${cur} — ${currentDept}`, 'i');
+  }
+  prevServing = cur;
+  el.textContent = cur;
+
+  document.getElementById('waitCount').textContent = waiting;
+  document.getElementById('doneCount').textContent = done;
+  document.getElementById('stDone').textContent    = done;
+  document.getElementById('stWait').textContent    = waiting;
+  document.getElementById('stTotal').textContent   = total;
+  document.getElementById('stETA').textContent     = eta(waiting);
+
+  setRing(waiting, total);
+}
+
+// ── HELPERS ───────────────────────────────────
+function eta(waiting) {
+  if (!waiting) return 'Clear';
+  const d = new Date();
+  d.setMinutes(d.getMinutes() + waiting * AVG_MIN);
+  return d.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+}
+
+function setRing(waiting, total) {
+  const pct    = total > 0 ? Math.min(waiting / total, 1) : 0;
+  const offset = 289 - pct * 289;
+  document.getElementById('ringFg').style.strokeDashoffset = offset;
+  document.getElementById('ringNum').textContent = waiting;
+}
+
+function buildTicker() {
+  const items = [
+    '🎫 Book your appointment to automatically get a queue token',
+    '⏰ OPD closes at <span>5:00 PM</span>',
+    '💊 Pharmacy open till <span>8:00 PM</span>',
+    '📞 Emergency: <span>+91 98765 00000</span>',
+    '🔢 Each department has its own independent token list',
+    '🩺 Carry your prescription for faster consultation',
+  ];
+  const doubled = [...items, ...items];
+  document.getElementById('tickerTrack').innerHTML =
+    doubled.map(i => `<span class="ticker-item">${i}</span>`).join('');
+}
+
+function showToast(msg, type='i') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast t-${type} show`;
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+function esc(s) {
+  return (s||'').replace(/[&<>"']/g, m =>
+    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
 </script>
 </body>
 </html>
