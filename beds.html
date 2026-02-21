@@ -173,7 +173,6 @@ function toggleMode(){
       document.body.classList.contains("dark") ? "☀️" : "🌙";
 }
 
-// ✅ BACKEND DATA FETCH (FIXED)
 fetch("http://localhost:3000/api/beds")
   .then(res => res.json())
   .then(data => {
@@ -204,4 +203,5 @@ fetch("http://localhost:3000/api/beds")
 </script>
 
 </body>
+
 </html>
