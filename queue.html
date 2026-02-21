@@ -26,7 +26,6 @@
       overflow-x: hidden;
     }
 
-    /* ── NAVBAR ── */
     .navbar {
       position: fixed;
       top: 0; width: 100%;
@@ -44,7 +43,6 @@
     .nav-links a { text-decoration: none; color: white; font-weight: 500; transition: 0.3s; }
     .nav-links a:hover { color: #00e5ff; }
 
-    /* ── HERO TICKER ── */
     .hero {
       padding: 130px 60px 50px;
       text-align: center;
@@ -52,7 +50,6 @@
     .hero h1 { font-size: 44px; font-weight: 700; color: #90e0ef; margin-bottom: 10px; }
     .hero p  { color: #b0d8e8; font-size: 16px; }
 
-    /* ── MAIN GRID ── */
     .main-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -62,7 +59,6 @@
       padding: 0 30px 60px;
     }
 
-    /* ── CARDS ── */
     .panel {
       background: var(--card);
       border: 1px solid var(--card-border);
@@ -80,7 +76,6 @@
       gap: 10px;
     }
 
-    /* ── NOW SERVING (big panel spans both cols) ── */
     .serving-panel {
       grid-column: 1 / -1;
       display: flex;
@@ -136,7 +131,6 @@
     .ring-label .rl-num { font-family: 'Space Mono', monospace; font-size: 26px; font-weight: 700; color: #90e0ef; }
     .ring-label .rl-text { font-size: 10px; color: var(--subtext); }
 
-    /* ── GET TOKEN ── */
     .form-group { margin-bottom: 18px; }
     .form-group label { display: block; font-size: 13px; color: var(--subtext); margin-bottom: 8px; }
     .form-group input,
@@ -173,7 +167,6 @@
     .btn-get-token:hover { transform: translateY(-3px); box-shadow: 0 0 28px rgba(0,229,255,0.5); }
     .btn-get-token:active { transform: scale(0.98); }
 
-    /* ── TOKEN CARD ── */
     .token-display { display: none; margin-top: 22px; }
     .token-display.show { display: block; animation: slideUp 0.5s ease; }
     @keyframes slideUp {
@@ -208,7 +201,6 @@
     }
     .tc-wait span { color: #00e5ff; font-weight: 700; }
 
-    /* ── QUEUE LIST ── */
     .queue-list { display: flex; flex-direction: column; gap: 10px; max-height: 360px; overflow-y: auto; padding-right: 4px; }
     .queue-list::-webkit-scrollbar { width: 5px; }
     .queue-list::-webkit-scrollbar-track { background: transparent; }
@@ -252,7 +244,6 @@
     .status-waiting { background: rgba(255,255,255,0.07); color: #94a3b8; }
     .status-done    { background: rgba(52,211,153,0.15); color: #34d399; }
 
-    /* ── STATS ROW ── */
     .stats-row {
       grid-column: 1 / -1;
       display: grid;
@@ -276,7 +267,6 @@
     }
     .stat-card .sc-label { font-size: 12px; color: var(--subtext); margin-top: 4px; }
 
-    /* ── ADMIN PANEL ── */
     .admin-toggle {
       position: fixed;
       bottom: 28px; right: 28px;
@@ -316,7 +306,6 @@
     .admin-row span { font-family: 'Space Mono', monospace; font-size: 16px; color: #90e0ef; min-width: 32px; text-align: right; }
     .admin-close { display: block; width: 100%; margin-top: 10px; padding: 10px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; color: white; font-family: 'Poppins',sans-serif; cursor: pointer; font-size: 13px; }
 
-    /* ── TICKER ── */
     .ticker-bar {
       background: rgba(0,180,216,0.15);
       border-top: 1px solid rgba(0,229,255,0.2);
@@ -335,7 +324,6 @@
     .ticker-item { font-size: 13px; color: #90e0ef; }
     .ticker-item span { color: white; font-weight: 600; }
 
-    /* ── NOTIFICATION TOAST ── */
     .toast {
       position: fixed;
       top: 90px; right: 30px;
@@ -352,7 +340,6 @@
     }
     .toast.show { transform: translateX(0); }
 
-    /* ── RESPONSIVE ── */
     @media (max-width: 750px) {
       .main-grid { grid-template-columns: 1fr; }
       .serving-panel { flex-direction: column; text-align: center; }
@@ -365,8 +352,6 @@
   </style>
 </head>
 <body>
-
-<!-- NAVBAR -->
 <nav class="navbar">
   <div class="logo">MediCare+</div>
   <ul class="nav-links">
@@ -376,350 +361,51 @@
   </ul>
 </nav>
 
-<!-- HERO -->
 <div class="hero">
   <h1>🏥 Live Queue System</h1>
   <p>Real-time token tracking — know your position, save your time</p>
 </div>
 
-<!-- TICKER -->
 <div class="ticker-bar">
-  <div class="ticker-track" id="tickerTrack">
-    <!-- populated by JS -->
-  </div>
+  <div class="ticker-track" id="tickerTrack"></div>
 </div>
 
-<!-- MAIN -->
 <div class="main-grid">
-
-  <!-- NOW SERVING -->
-  <div class="panel serving-panel">
-    <div class="serving-left">
-      <div class="serving-label">🔔 Now Serving</div>
-      <div class="serving-number" id="nowServing">--</div>
-      <div class="serving-meta" id="servingMeta">Department: <span id="servingDept">—</span> &nbsp;|&nbsp; Avg. wait: <span id="avgWait">—</span> min/token</div>
-    </div>
-    <div class="serving-right">
-      <div class="dept-badge" id="deptBadge">All Departments</div>
-      <div class="progress-ring-wrap">
-        <svg width="110" height="110" viewBox="0 0 110 110">
-          <circle class="ring-bg" cx="55" cy="55" r="46"/>
-          <circle class="ring-fg" id="ringFg" cx="55" cy="55" r="46"
-                  stroke-dasharray="289" stroke-dashoffset="289"/>
-        </svg>
-        <div class="ring-label">
-          <div class="rl-num" id="ringNum">0</div>
-          <div class="rl-text">in queue</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- STATS -->
-  <div class="stats-row">
-    <div class="stat-card">
-      <div class="sc-icon">✅</div>
-      <div class="sc-val" id="statDone">0</div>
-      <div class="sc-label">Served Today</div>
-    </div>
-    <div class="stat-card">
-      <div class="sc-icon">⏳</div>
-      <div class="sc-val" id="statWaiting">0</div>
-      <div class="sc-label">Waiting</div>
-    </div>
-    <div class="stat-card">
-      <div class="sc-icon">⚡</div>
-      <div class="sc-val" id="statAvg">5</div>
-      <div class="sc-label">Min / Token</div>
-    </div>
-    <div class="stat-card">
-      <div class="sc-icon">🕐</div>
-      <div class="sc-val" id="statTime">—</div>
-      <div class="sc-label">Est. Clear Time</div>
-    </div>
-  </div>
-
-  <!-- GET TOKEN -->
-  <div class="panel">
-    <h2>🎫 Get Your Token</h2>
-    <div class="form-group">
-      <label>Your Name</label>
-      <input type="text" id="qName" placeholder="Full name" autocomplete="off">
-    </div>
-    <div class="form-group">
-      <label>Department</label>
-      <select id="qDept">
-        <option value="">Select department...</option>
-        <option>❤️ Cardiology</option>
-        <option>👨‍⚕️ Dermatology</option>
-        <option>🧠 Neurology</option>
-        <option>🦴 Orthopedics</option>
-        <option>👶 Pediatrics</option>
-        <option>💊 General Medicine</option>
-      </select>
-    </div>
-    <button class="btn-get-token" onclick="getToken()">Get Token Number →</button>
-
-    <div class="token-display" id="tokenDisplay">
-      <div class="token-card">
-        <div class="tc-label">Your Token</div>
-        <div class="tc-num" id="tcNum">—</div>
-        <div class="tc-name" id="tcName">—</div>
-        <div class="tc-dept" id="tcDept">—</div>
-        <div class="tc-wait">Estimated wait: <span id="tcWait">—</span></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- QUEUE LIST -->
-  <div class="panel">
-    <h2>📋 Live Queue</h2>
-    <div class="queue-list" id="queueList">
-      <p style="color:var(--subtext);font-size:14px;text-align:center;padding:40px 0;">Queue is empty</p>
-    </div>
-  </div>
-
+  ...
 </div>
-
-<!-- ADMIN DRAWER -->
-<button class="admin-toggle" onclick="toggleAdmin()">⚙️ Admin Panel</button>
-<div class="admin-drawer" id="adminDrawer">
-  <h3>⚙️ Admin Controls</h3>
-  <div class="admin-row">
-    <label>Current Token:</label>
-    <input type="range" id="adminToken" min="1" max="50" value="1" oninput="adminUpdate()">
-    <span id="adminTokenVal">1</span>
-  </div>
-  <div class="admin-row">
-    <label>Avg. Min / Token:</label>
-    <input type="range" id="adminAvg" min="1" max="20" value="5" oninput="adminUpdate()">
-    <span id="adminAvgVal">5</span>
-  </div>
-  <div class="admin-row">
-    <label>Department Filter:</label>
-    <select id="adminDept" style="flex:1;padding:8px 12px;background:rgba(255,255,255,0.08);border:1px solid rgba(144,224,239,0.25);border-radius:10px;color:white;font-family:Poppins,sans-serif;" onchange="adminUpdate()">
-      <option>All Departments</option>
-      <option>❤️ Cardiology</option>
-      <option>👨‍⚕️ Dermatology</option>
-      <option>🧠 Neurology</option>
-      <option>🦴 Orthopedics</option>
-      <option>👶 Pediatrics</option>
-      <option>💊 General Medicine</option>
-    </select>
-  </div>
-  <button class="admin-close" onclick="toggleAdmin()">✕ Close</button>
-</div>
-
-<!-- TOAST -->
-<div class="toast" id="toast"></div>
 
 <script>
-// ── STATE ──
 const state = {
-  currentToken: 5,   // token being served
+  currentToken: 5,
   avgMin: 5,
-  queue: [],         // [{id, name, dept, status:'waiting'|'serving'|'done'}]
-  nextTokenNum: null, // user's token
+  queue: [],
+  nextTokenNum: null,
   tokenCounter: 1
 };
 
-// seed some demo queue entries
 const demoNames = ['Ravi Sharma','Priya Singh','Arjun Patel','Meena Kapoor','Suresh Kumar'];
 const demoDepts = ['❤️ Cardiology','💊 General Medicine','🧠 Neurology','👨‍⚕️ Dermatology','👶 Pediatrics'];
 
 function seedQueue() {
   state.tokenCounter = 1;
   state.queue = [];
-  // add done ones
   for (let i = 1; i <= state.currentToken - 1 && i <= 5; i++) {
     state.queue.push({ id: i, name: demoNames[(i-1)%5], dept: demoDepts[(i-1)%5], status: 'done' });
     state.tokenCounter++;
   }
-  // currently serving
   state.queue.push({ id: state.currentToken, name: demoNames[state.currentToken % 5], dept: demoDepts[state.currentToken % 5], status: 'serving' });
   state.tokenCounter = state.currentToken + 1;
-  // a few waiting
   for (let i = 0; i < 3; i++) {
     state.queue.push({ id: state.tokenCounter, name: demoNames[i%5], dept: demoDepts[(i+2)%5], status: 'waiting' });
     state.tokenCounter++;
   }
 }
 
-// ── INIT ──
 seedQueue();
 renderAll();
 buildTicker();
 updateClock();
 setInterval(updateClock, 30000);
-
-// ── RENDER ALL ──
-function renderAll() {
-  renderNowServing();
-  renderStats();
-  renderQueueList();
-  renderRing();
-}
-
-function renderNowServing() {
-  const el = document.getElementById('nowServing');
-  const prev = el.innerText;
-  const cur = String(state.currentToken).padStart(2,'0');
-  el.innerText = cur;
-  if (prev !== cur && prev !== '--') {
-    el.classList.remove('pulse');
-    void el.offsetWidth;
-    el.classList.add('pulse');
-  }
-  document.getElementById('avgWait').innerText = state.avgMin;
-  const deptEl = document.getElementById('deptBadge');
-  deptEl.innerText = document.getElementById('adminDept')?.value || 'All Departments';
-}
-
-function renderStats() {
-  const done    = state.queue.filter(q=>q.status==='done').length;
-  const waiting = state.queue.filter(q=>q.status==='waiting').length;
-  document.getElementById('statDone').innerText    = done;
-  document.getElementById('statWaiting').innerText = waiting;
-  document.getElementById('statAvg').innerText     = state.avgMin;
-  const clearMins = waiting * state.avgMin;
-  const now = new Date();
-  now.setMinutes(now.getMinutes() + clearMins);
-  document.getElementById('statTime').innerText = now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
-}
-
-function renderQueueList() {
-  const container = document.getElementById('queueList');
-  const visible = state.queue.slice(-12); // last 12
-  if (!visible.length) {
-    container.innerHTML = '<p style="color:var(--subtext);font-size:14px;text-align:center;padding:40px 0;">Queue is empty</p>';
-    return;
-  }
-  container.innerHTML = visible.map(q => `
-    <div class="queue-item ${q.status==='serving'?'active-item':''}">
-      <div class="qi-num ${q.status==='serving'?'active-num':''}">#${String(q.id).padStart(2,'0')}</div>
-      <div class="qi-info">
-        <div class="qi-name">${esc(q.name)}</div>
-        <div class="qi-dept">${esc(q.dept)}</div>
-      </div>
-      <div class="qi-status ${q.status==='serving'?'status-serving':q.status==='done'?'status-done':'status-waiting'}">
-        ${q.status==='serving'?'🟢 Serving':q.status==='done'?'✓ Done':'⏳ Waiting'}
-      </div>
-    </div>
-  `).join('');
-  // scroll to bottom
-  container.scrollTop = container.scrollHeight;
-}
-
-function renderRing() {
-  const waiting = state.queue.filter(q=>q.status==='waiting').length;
-  const total   = Math.max(state.queue.length, 1);
-  const pct     = Math.min(waiting / total, 1);
-  const circ    = 289;
-  const offset  = circ - pct * circ;
-  document.getElementById('ringFg').style.strokeDashoffset = offset;
-  document.getElementById('ringNum').innerText = waiting;
-}
-
-// ── GET TOKEN ──
-function getToken() {
-  const name = document.getElementById('qName').value.trim();
-  const dept = document.getElementById('qDept').value;
-  if (!name || !dept) { showToast('⚠️ Please enter name and department'); return; }
-
-  const tokenNum = state.tokenCounter++;
-  state.queue.push({ id: tokenNum, name, dept, status: 'waiting' });
-
-  // show token card
-  document.getElementById('tcNum').innerText  = String(tokenNum).padStart(2,'0');
-  document.getElementById('tcName').innerText = name;
-  document.getElementById('tcDept').innerText = dept;
-  const pos     = state.queue.filter(q=>q.status==='waiting').length;
-  const waitMin = pos * state.avgMin;
-  document.getElementById('tcWait').innerText = waitMin < 2 ? 'Almost your turn!' : `~${waitMin} minutes (Position #${pos})`;
-
-  document.getElementById('tokenDisplay').classList.add('show');
-  showToast(`🎫 Token #${String(tokenNum).padStart(2,'0')} issued to ${name}`);
-  document.getElementById('qName').value = '';
-  document.getElementById('qDept').value = '';
-  renderAll();
-}
-
-// ── ADMIN ──
-function toggleAdmin() {
-  document.getElementById('adminDrawer').classList.toggle('open');
-}
-
-function adminUpdate() {
-  const t = parseInt(document.getElementById('adminToken').value);
-  const a = parseInt(document.getElementById('adminAvg').value);
-  document.getElementById('adminTokenVal').innerText = t;
-  document.getElementById('adminAvgVal').innerText   = a;
-
-  // advance queue
-  if (t !== state.currentToken) {
-    state.currentToken = t;
-    state.queue.forEach(q => {
-      if (q.id < t)        q.status = 'done';
-      else if (q.id === t) q.status = 'serving';
-      else                 q.status = 'waiting';
-    });
-    showToast(`📢 Now serving token #${String(t).padStart(2,'0')}`);
-  }
-  state.avgMin = a;
-  renderAll();
-}
-
-// ── TICKER ──
-function buildTicker() {
-  const items = [
-    '🔔 Now serving <span>#05</span>',
-    '📍 ICU: <span>8 beds</span> available',
-    '⏰ OPD closes at <span>5:00 PM</span>',
-    '💊 Pharmacy open till <span>8:00 PM</span>',
-    '🩺 New doctors joining <span>Neurology</span> this week',
-    '📞 Emergency: <span>+1 (555) 000-9999</span>',
-    '✅ Online appointments now open for <span>Cardiology</span>',
-  ];
-  const doubled = [...items, ...items]; // for seamless loop
-  const track = document.getElementById('tickerTrack');
-  track.innerHTML = doubled.map(i => `<span class="ticker-item">${i}</span>`).join('');
-}
-
-// ── CLOCK ──
-function updateClock() {
-  renderStats();
-}
-
-// ── TOAST ──
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.innerText = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3200);
-}
-
-// ── UTIL ──
-function esc(s) {
-  return (s||'').replace(/[&<>"']/g, m =>
-    ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-}
-
-// ── AUTO DEMO ADVANCE (every 15s) ──
-setInterval(() => {
-  const maxId = state.queue.length ? Math.max(...state.queue.map(q=>q.id)) : state.currentToken;
-  if (state.currentToken < maxId) {
-    state.currentToken++;
-    document.getElementById('adminToken').value = state.currentToken;
-    document.getElementById('adminTokenVal').innerText = state.currentToken;
-    state.queue.forEach(q => {
-      if (q.id < state.currentToken)        q.status = 'done';
-      else if (q.id === state.currentToken) q.status = 'serving';
-      else                                  q.status = 'waiting';
-    });
-    showToast(`📢 Now serving token #${String(state.currentToken).padStart(2,'0')}`);
-    renderAll();
-  }
-}, 15000);
 </script>
 </body>
 </html>
