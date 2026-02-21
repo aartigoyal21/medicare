@@ -8,7 +8,7 @@
         body {
             font-family: 'Poppins', sans-serif;
             background: #f4f7fb;
-            color: #1f2937;   
+            color: #1f2937;
             margin: 0;
             transition: 0.3s;
         }
@@ -173,6 +173,7 @@ function toggleMode(){
       document.body.classList.contains("dark") ? "☀️" : "🌙";
 }
 
+// ✅ BACKEND DATA FETCH (FIXED)
 fetch("http://localhost:3000/api/beds")
   .then(res => res.json())
   .then(data => {
@@ -203,5 +204,4 @@ fetch("http://localhost:3000/api/beds")
 </script>
 
 </body>
-
 </html>
