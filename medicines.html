@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Medicine Information | MediCare+</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    body{
+      font-family:'Poppins',sans-serif;
+      background:#f4f7fb;
+      color:#1f2937;
+      margin:0;
+      transition:.3s;
+    }
+    body.dark{
+      background:#0f172a;
+      color:#e5e7eb;
+    }
+
+    /* ===== TOP BAR ===== */
+    .top-bar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:18px 35px;
+      background:#ffffff;
+      box-shadow:0 4px 12px rgba(0,0,0,.08);
+    }
+    body.dark .top-bar{background:#020617}
+
+    .logo{
+      font-size:20px;
+      font-weight:600;
+      color:#2563eb;
+    }
+    body.dark .logo{color:#93c5fd}
+
+    .actions{
+      display:flex;
+      gap:20px;
+      align-items:center;
+    }
+
+    .home-btn{
+      text-decoration:none;
+      font-size:14px;
+      padding:8px 14px;
+      border-radius:6px;
+      background:#2563eb;
+      color:white;
+    }
+
+    .toggle{
+      font-size:20px;
+      cursor:pointer;
+    }
+
+    /* ===== HEADER ===== */
+    .header{
+      text-align:center;
+      margin:40px 20px 30px;
+    }
+    .header h2{
+      color:#1e3a8a;
+      margin-bottom:6px;
+    }
+    body.dark .header h2{color:#bfdbfe}
+
+    .header p{
+      color:#6b7280;
+      font-size:15px;
+    }
+    body.dark .header p{color:#94a3b8}
+
+    /* ===== GRID ===== */
+    .medicine-container{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:25px;
+      padding:0 40px 40px;
+    }
+
+    .medicine-card{
+      background:white;
+      padding:24px;
+      border-radius:14px;
+      box-shadow:0 6px 20px rgba(0,0,0,.08);
+      text-align:center;
+      transition:.3s;
+    }
+    body.dark .medicine-card{background:#1e293b}
+
+    .medicine-card:hover{
+      transform:translateY(-4px);
+    }
+
+    .icon{
+      font-size:34px;
+      color:#2563eb;
+      margin-bottom:12px;
+    }
+    body.dark .icon{color:#93c5fd}
+
+    .medicine-card h3{
+      margin:6px 0 12px;
+      font-size:18px;
+      color:#2563eb;
+    }
+    body.dark .medicine-card h3{color:#93c5fd}
+
+    .row{
+      font-size:14px;
+      margin:6px 0;
+    }
+    .label{font-weight:600}
+
+    .stock{
+      margin-top:10px;
+      font-size:13px;
+      color:#15803d;
+      font-weight:600;
+    }
+    body.dark .stock{color:#4ade80}
+
+    /* ===== HINDI HOVER TEXT ===== */
+    .hindi{
+      font-size:13px;
+      margin-top:10px;
+      color:#374151;
+      display:none;
+    }
+    body.dark .hindi{
+      color:#e5e7eb;
+    }
+
+    .medicine-card:hover .hindi{
+      display:block;
+    }
+
+    /* ===== DISCLAIMER ===== */
+    .disclaimer{
+      background:#fff7ed;
+      border-left:5px solid #f97316;
+      margin:20px 40px;
+      padding:16px;
+      font-size:13px;
+      color:#7c2d12;
+      border-radius:8px;
+    }
+    body.dark .disclaimer{
+      background:#2a1c10;
+      color:#fed7aa;
+    }
+
+    .note{
+      text-align:center;
+      font-size:13px;
+      color:#6b7280;
+      padding-bottom:20px;
+    }
+    body.dark .note{color:#94a3b8}
+  </style>
+</head>
+
+<body>
+
+<!-- ===== TOP BAR ===== -->
+<div class="top-bar">
+  <div class="logo">MediCare+</div>
+  <div class="actions">
+    <a href="index.html" class="home-btn">⬅ Home</a>
+    <div class="toggle" onclick="toggleMode()">🌙</div>
+  </div>
+</div>
+
+<!-- ===== HEADER ===== -->
+<div class="header">
+  <h2>Medicine Information</h2>
+  <p>Hover on a card to view information in Hindi</p>
+</div>
+
+<!-- ===== MEDICINE CARDS ===== -->
+<div class="medicine-container">
+
+  <div class="medicine-card">
+    <div class="icon"><i class="fa-solid fa-head-side-cough"></i></div>
+    <h3>Cold & Cough</h3>
+    <div class="row"><span class="label">Medicine:</span> Paracetamol</div>
+    <div class="row"><span class="label">Purpose:</span> Mild cold and body pain relief</div>
+    <div class="stock">Available in Hospital Pharmacy</div>
+    <div class="hindi">जुकाम और खांसी में आराम के लिए उपयोगी</div>
+  </div>
+
+  <div class="medicine-card">
+    <div class="icon"><i class="fa-solid fa-temperature-high"></i></div>
+    <h3>Fever</h3>
+    <div class="row"><span class="label">Medicine:</span> Crocin</div>
+    <div class="row"><span class="label">Purpose:</span> Reduces body temperature</div>
+    <div class="stock">Available in Hospital Pharmacy</div>
+    <div class="hindi">बुखार कम करने और शरीर का तापमान घटाने में सहायक</div>
+  </div>
+
+  <div class="medicine-card">
+    <div class="icon"><i class="fa-solid fa-brain"></i></div>
+    <h3>Headache</h3>
+    <div class="row"><span class="label">Medicine:</span> Ibuprofen</div>
+    <div class="row"><span class="label">Purpose:</span> Headache and neurological pain relief</div>
+    <div class="stock">Limited Stock Available</div>
+    <div class="hindi">सिर दर्द और नसों के दर्द से राहत के लिए</div>
+  </div>
+
+  <div class="medicine-card">
+    <div class="icon"><i class="fa-solid fa-notes-medical"></i></div>
+    <h3>Stomach Pain</h3>
+    <div class="row"><span class="label">Medicine:</span> Antacid</div>
+    <div class="row"><span class="label">Purpose:</span> Acidity and gastric discomfort relief</div>
+    <div class="stock">Available in Hospital Pharmacy</div>
+    <div class="hindi">पेट दर्द, गैस और एसिडिटी में राहत</div>
+  </div>
+
+  <div class="medicine-card">
+    <div class="icon"><i class="fa-solid fa-lungs"></i></div>
+    <h3>Sore Throat</h3>
+    <div class="row"><span class="label">Medicine:</span> Lozenges</div>
+    <div class="row"><span class="label">Purpose:</span> Throat irritation relief</div>
+    <div class="stock">Available in Hospital Pharmacy</div>
+    <div class="hindi">गले की खराश और जलन में आराम</div>
+  </div>
+
+</div>
+
+<!-- ===== DISCLAIMER ===== -->
+<div class="disclaimer">
+  ⚠️ <b>Medical Disclaimer:</b><br>
+  These medicine suggestions are for common symptoms only and are verified by doctors.
+  This does not replace professional medical consultation.
+</div>
+
+<p class="note">
+  *Medicine availability may vary depending on hospital pharmacy stock
+</p>
+
+<script>
+  function toggleMode(){
+    document.body.classList.toggle("dark");
+    document.querySelector(".toggle").textContent =
+      document.body.classList.contains("dark") ? "☀️" : "🌙";
+  }
+</script>
+
+</body>
+</html>
