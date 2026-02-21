@@ -1,24 +1,30 @@
+/* ═══════════════════════════════════════════════
+   MediCare+ — Appointment Page Styles
+   Pairs with: appointment.html & script.js
+   ═══════════════════════════════════════════════ */
+
+/* ── RESET & BASE ── */
 *, *::before, *::after {
   margin: 0; padding: 0; box-sizing: border-box;
 }
 
 :root {
-  --bg: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  --accent: #90e0ef;
-  --accent2: #00b4d8;
-  --accent-dark: #003049;
-  --card: rgba(255, 255, 255, 0.07);
-  --card-border: rgba(144, 224, 239, 0.18);
-  --input-bg: rgba(255, 255, 255, 0.08);
-  --text: #ffffff;
-  --subtext: #b0d8e8;
-  --error: #ff6b6b;
-  --success: #00e5ff;
-  --radius-lg: 20px;
-  --radius-md: 14px;
-  --radius-sm: 10px;
-  --shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-  --glow: 0 0 28px rgba(0, 229, 255, 0.4);
+  --bg:         linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  --accent:     #90e0ef;
+  --accent2:    #00b4d8;
+  --accent-dark:#003049;
+  --card:       rgba(255, 255, 255, 0.07);
+  --card-border:rgba(144, 224, 239, 0.18);
+  --input-bg:   rgba(255, 255, 255, 0.08);
+  --text:       #ffffff;
+  --subtext:    #b0d8e8;
+  --error:      #ff6b6b;
+  --success:    #00e5ff;
+  --radius-lg:  20px;
+  --radius-md:  14px;
+  --radius-sm:  10px;
+  --shadow:     0 20px 60px rgba(0, 0, 0, 0.4);
+  --glow:       0 0 28px rgba(0, 229, 255, 0.4);
 }
 
 body, .appointment-page {
@@ -29,6 +35,9 @@ body, .appointment-page {
   overflow-x: hidden;
 }
 
+/* ─────────────────────────────────────────────
+   NAVBAR
+───────────────────────────────────────────── */
 .navbar {
   position: fixed;
   top: 0; width: 100%;
@@ -66,11 +75,14 @@ body, .appointment-page {
 
 .navbar .nav-links a:hover { color: #00e5ff; }
 
+/* ─────────────────────────────────────────────
+   HERO BANNER
+───────────────────────────────────────────── */
 .appointment-hero {
   position: relative;
   width: 100%;
   height: 300px;
-  margin-top: 62px;
+  margin-top: 62px;           /* offset fixed navbar */
   background:
     linear-gradient(135deg, rgba(0,50,90,0.85), rgba(0,20,40,0.9)),
     url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1400&auto=format&fit=crop')
@@ -78,6 +90,7 @@ body, .appointment-page {
   overflow: hidden;
 }
 
+/* subtle animated shimmer across hero */
 .appointment-hero::after {
   content: '';
   position: absolute;
@@ -119,6 +132,9 @@ body, .appointment-page {
   color: var(--subtext);
 }
 
+/* ─────────────────────────────────────────────
+   MAIN LAYOUT (form + info side-by-side)
+───────────────────────────────────────────── */
 .appointment-main {
   display: grid;
   grid-template-columns: 1fr 340px;
@@ -129,6 +145,9 @@ body, .appointment-page {
   align-items: start;
 }
 
+/* ─────────────────────────────────────────────
+   FORM SECTION
+───────────────────────────────────────────── */
 .form-section {
   background: var(--card);
   border: 1px solid var(--card-border);
@@ -148,6 +167,7 @@ body, .appointment-page {
   border-bottom: 1px solid rgba(144, 224, 239, 0.18);
 }
 
+/* ── FORM ROWS & GROUPS ── */
 .modern-form .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -169,6 +189,7 @@ body, .appointment-page {
   letter-spacing: 0.8px;
 }
 
+/* ── INPUTS, SELECTS, TEXTAREA ── */
 .form-group input,
 .form-group select,
 .form-group textarea {
@@ -186,6 +207,7 @@ body, .appointment-page {
   -webkit-appearance: none;
 }
 
+/* date/time inputs — keep white text on dark bg */
 .form-group input[type="date"],
 .form-group input[type="time"] {
   color-scheme: dark;
@@ -209,6 +231,7 @@ body, .appointment-page {
   line-height: 1.5;
 }
 
+/* focus state */
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
@@ -217,11 +240,13 @@ body, .appointment-page {
   box-shadow: 0 0 0 3px rgba(0, 180, 216, 0.18);
 }
 
+/* placeholder */
 .form-group input::placeholder,
 .form-group textarea::placeholder {
   color: rgba(176, 216, 232, 0.4);
 }
 
+/* ── ERROR MESSAGES ── */
 .error {
   font-size: 12px;
   color: var(--error);
@@ -229,6 +254,7 @@ body, .appointment-page {
   display: block;
 }
 
+/* ── SUBMIT BUTTON ── */
 .btn-submit {
   display: block;
   width: 100%;
@@ -253,6 +279,7 @@ body, .appointment-page {
 
 .btn-submit:active { transform: scale(0.98); }
 
+/* ── SUCCESS / ERROR MESSAGE BOX ── */
 .message {
   display: none;
   margin-top: 20px;
@@ -272,6 +299,9 @@ body, .appointment-page {
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* ─────────────────────────────────────────────
+   INFO SIDEBAR
+───────────────────────────────────────────── */
 .info-section {
   display: flex;
   flex-direction: column;
@@ -311,6 +341,9 @@ body, .appointment-page {
   line-height: 1.9;
 }
 
+/* ─────────────────────────────────────────────
+   BOOKED APPOINTMENTS SECTION
+───────────────────────────────────────────── */
 .appointments-section {
   max-width: 1200px;
   margin: 0 auto 60px;
@@ -326,12 +359,17 @@ body, .appointment-page {
   border-bottom: 1px solid rgba(144, 224, 239, 0.18);
 }
 
+.appointments-container {
+  /* wrapper if needed for scroll */
+}
+
 .appointments-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 22px;
 }
 
+/* empty state */
 .no-appointments {
   color: var(--subtext);
   font-size: 15px;
@@ -341,6 +379,7 @@ body, .appointment-page {
   opacity: 0.7;
 }
 
+/* ── APPOINTMENT CARD ── */
 .appointment-card {
   background: var(--card);
   border: 1px solid var(--card-border);
@@ -357,6 +396,7 @@ body, .appointment-page {
   box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
 }
 
+/* ── SLIDE ANIMATIONS (used by script.js) ── */
 .from-left  { opacity: 0; transform: translateX(-40px); }
 .from-right { opacity: 0; transform: translateX(40px); }
 
@@ -367,6 +407,7 @@ body, .appointment-page {
   transition: opacity 0.55s ease, transform 0.55s ease;
 }
 
+/* ── CANCEL BUTTON (inline via JS) ── */
 .cancel-btn {
   margin-top: 8px;
   padding: 6px 14px;
@@ -386,6 +427,9 @@ body, .appointment-page {
   transform: scale(1.05);
 }
 
+/* ─────────────────────────────────────────────
+   FOOTER
+───────────────────────────────────────────── */
 .footer {
   background: rgba(0, 0, 0, 0.55);
   text-align: center;
@@ -396,6 +440,9 @@ body, .appointment-page {
   letter-spacing: 0.3px;
 }
 
+/* ─────────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────────── */
 @media (max-width: 960px) {
   .appointment-main {
     grid-template-columns: 1fr;
