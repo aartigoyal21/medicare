@@ -15,14 +15,13 @@ body {
     color: white;
 }
 
-/* ================= LIGHT MODE ================= */
 
 body.light-mode {
     background: #ffffff;
     color: #111;
 }
 
-/* ================= THEME TOGGLE ================= */
+
 
 .theme-toggle {
     position: fixed;
@@ -53,7 +52,6 @@ body.light-mode .theme-toggle {
     border: 1px solid #ccc;
 }
 
-/* ================= CONTAINER ================= */
 
 .container {
     width: 1000px;
@@ -71,7 +69,7 @@ body.light-mode .container {
     box-shadow: 0 30px 60px rgba(0,0,0,0.1);
 }
 
-/* ================= LEFT SECTION ================= */
+
 
 .left-section {
     width: 50%;
@@ -97,7 +95,7 @@ body.light-mode .left-section {
     color: #777;
 }
 
-/* Circle Graphic */
+
 
 .circle {
     width: 180px;
@@ -126,7 +124,7 @@ body.light-mode .left-section p {
     color: #555;
 }
 
-/* ================= RIGHT SECTION ================= */
+
 
 .right-section {
     width: 50%;
@@ -149,7 +147,7 @@ body.light-mode .subtitle {
     color: #555;
 }
 
-/* ================= INPUTS ================= */
+
 
 input {
     width: 100%;
