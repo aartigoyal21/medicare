@@ -1,0 +1,535 @@
+/* ================= RESET ================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background: linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    color:white;
+    overflow-x:hidden;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar{
+    position:fixed;
+    top:0;
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 60px;
+    background:rgba(0,0,0,0.4);
+    backdrop-filter:blur(10px);
+    z-index:1000;
+}
+
+.logo{
+    font-size:24px;
+    font-weight:700;
+    color:#90e0ef;
+}
+
+.nav-links{
+    list-style:none;
+    display:flex;
+    gap:30px;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:white;
+    font-weight:500;
+    transition:0.3s;
+}
+
+.nav-links a:hover{
+    color:#00e5ff;
+}
+
+/* ================= HERO SECTION ================= */
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    padding:140px 60px 80px;
+}
+
+.hero-container{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:100px;
+    max-width:1300px;
+    margin:auto;
+    width:100%;
+}
+
+/* LEFT TEXT */
+
+.hero-text{
+    flex:1;
+}
+
+.hero-text h1{
+    font-size:52px;
+    margin-bottom:20px;
+}
+
+.hero-text p{
+    font-size:18px;
+    color:#d9faff;
+    margin-bottom:30px;
+    line-height:1.6;
+}
+
+/* BUTTON */
+
+.hero-btn{
+    padding:15px 34px;
+    background:linear-gradient(45deg,#00b4d8,#90e0ef);
+    color:#003049;
+    border-radius:35px;
+    text-decoration:none;
+    font-weight:600;
+    transition:0.4s;
+}
+
+.hero-btn:hover{
+    transform:translateY(-4px);
+    box-shadow:0 0 25px #00e5ff;
+}
+
+/* RIGHT IMAGE */
+
+.hero-image{
+    flex:1;
+    text-align:center;
+}
+
+.hero-image img{
+    width:115%;
+    max-width:400px;
+    border-radius:20px;
+    box-shadow:0 25px 50px rgba(0,0,0,0.4);
+    transition:0.4s;
+}
+
+.hero-image img:hover{
+    transform:scale(1.03);
+}
+
+/* ================= SECTION ================= */
+
+section {
+    margin: 0;
+}
+.section{
+   padding:70px 20px;
+    text-align:center;
+}
+
+/* .section h2{
+    font-size:36px;
+    margin-bottom:20px;
+    color:#90e0ef;
+} */
+
+/* SAME HEADING STYLE FOR ALL SECTIONS */
+
+.features h2 {
+    margin-top: 0;
+}
+.section h2,
+.features h2 {
+    font-size: 38px;
+    font-weight: 700;
+    color: #90e0ef;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.section p{
+    max-width:750px;
+    margin:auto;
+    color:#e6ffff;
+}
+
+/* ================= SERVICES ================= */
+
+.service-box{
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    margin-top:50px;
+    flex-wrap:wrap;
+}
+
+.service-box div{
+    background:rgba(255,255,255,0.1);
+    backdrop-filter:blur(12px);
+    padding:30px;
+    width:260px;
+    border-radius:15px;
+    box-shadow:0 10px 40px rgba(0,0,0,0.3);
+    transition:0.4s;
+}
+
+.service-box div:hover{
+    transform:translateY(-10px);
+}
+
+/* ================= FEATURES ================= */
+
+.features{
+    padding:70px 20px;
+    text-align:center;
+}
+
+.card-container{
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    flex-wrap:wrap;
+    margin-top:60px;
+}
+
+.card{
+    background:rgba(255,255,255,0.1);
+    backdrop-filter:blur(15px);
+    padding:35px;
+    width:260px;
+    border-radius:20px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.35);
+    transition:0.4s;
+}
+
+.card:hover{
+    transform:translateY(-12px);
+}
+
+.card h3{
+    margin-bottom:15px;
+    color:#90e0ef;
+}
+
+.card p{
+    font-size:14px;
+    color:#e8ffff;
+}
+
+.card-btn{
+    display:inline-block;
+    margin-top:15px;
+    padding:10px 18px;
+    background:linear-gradient(45deg,#00b4d8,#90e0ef);
+    color:#003049;
+    border-radius:25px;
+    text-decoration:none;
+    font-weight:600;
+}
+
+.card-btn:hover{
+    box-shadow:0 0 20px #00e5ff;
+}
+
+/* ================= CONTACT ================= */
+
+#contact{
+    padding:100px 20px;
+    text-align:center;
+}
+
+/* ================= FOOTER ================= */
+
+.footer{
+    background:rgba(0,0,0,0.6);
+    text-align:center;
+    padding:30px;
+    font-size:14px;
+    margin-top:40px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:900px){
+
+.hero-container{
+    flex-direction:column;
+    text-align:center;
+}
+
+.hero-image img{
+    width:100%;
+}
+
+.navbar{
+    padding:20px;
+}
+
+}
+
+
+/* ================= CTA SECTION ================= */
+
+.cta-section{
+    /* padding:100px 60px;
+    background:linear-gradient(135deg,#f7fbff,#e6f4ff); */
+     padding:100px 60px;
+    background: linear-gradient(
+        135deg,
+        rgba(255,255,255,0.05),
+        rgba(0,180,216,0.08)
+    );
+}
+
+.cta-container{
+    max-width:1200px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:80px;
+}
+
+/* LEFT SIDE */
+
+.cta-text{
+    flex:1;
+}
+
+.cta-text h2{
+    font-size:48px;
+    color:#023e8a;
+    margin-bottom:20px;
+}
+
+.cta-text p{
+    font-size:17px;
+    color:#555;
+    margin-bottom:30px;
+    line-height:1.6;
+}
+
+/* BUTTON */
+
+.cta-btn{
+    display:inline-block;
+    padding:14px 30px;
+    background:linear-gradient(45deg,#0077b6,#00b4d8);
+    color:white;
+    text-decoration:none;
+    border-radius:30px;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.cta-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 25px rgba(0,183,255,0.4);
+}
+
+/* RIGHT IMAGE */
+
+.cta-image{
+    flex:1;
+    text-align:center;
+}
+
+.cta-image img{
+    width:100%;
+    max-width:400px;
+    border-radius:20px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.15);
+    transition:0.3s;
+}
+
+.cta-image img:hover{
+    transform:scale(1.03);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+    .cta-container{
+        flex-direction:column;
+        text-align:center;
+    }
+}
+
+
+
+
+.cta-text h2{
+    color:#90e0ef;
+}
+
+.cta-text p{
+    color:#e6ffff;
+}
+
+.cta-container{
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(12px);
+    padding:50px;
+    border-radius:20px;
+}
+/* ================= THEME BUTTON ================= */
+
+.theme-btn{
+    background:rgba(255,255,255,0.2);
+    border:none;
+    padding:8px 14px;
+    border-radius:20px;
+    cursor:pointer;
+    font-size:18px;
+    color:white;
+}
+
+/* ================= LIGHT MODE ================= */
+
+body.light-mode{
+    background:linear-gradient(135deg,#f5fbff,#e6f4ff,#ffffff);
+    color:#222;
+}
+/* TEXT COLOR FIX FOR LIGHT MODE */
+
+body.light-mode p{
+    color:black;
+}
+
+body.light-mode .section p{
+    color:black;
+}
+
+body.light-mode .hero-text p{
+    color:black;
+}
+
+body.light-mode .cta-text p{
+    color:#0077b6;
+}
+
+
+body.light-mode .navbar{
+    background:rgba(255,255,255,0.8);
+}
+
+body.light-mode .nav-links a{
+    color:#023e8a;
+}
+
+body.light-mode .logo{
+    color:#0077b6;
+}
+
+body.light-mode .card,
+body.light-mode .service-box div{
+    background:white;
+    color:#333;
+}
+
+body.light-mode .section p{
+    color:#444;
+}
+
+body.light-mode .footer{
+    background:#0077b6;
+}
+
+.emergency-btn {
+    background-color: red;
+    color: white;
+    font-size: 22px;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+
+
+/* ================= EMERGENCY PAGE ================= */
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Page background */
+.emergency-page {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+}
+
+/* Emergency Card */
+.emergency-container {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    width: 350px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.emergency-container h2 {
+    color: #dc2626;
+    margin-bottom: 20px;
+}
+
+/* Inputs */
+.emergency-container input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+}
+
+/* Emergency Button */
+.emergency-btn {
+    width: 100%;
+    background: red;
+    color: white;
+    font-size: 22px;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+/* Hover effect */
+.emergency-btn:hover {
+    background: #b91c1c;
+    transform: scale(1.05);
+}
+
+/* Button animation */
+.emergency-btn:active {
+    transform: scale(0.95);
+}
+#getLocationBtn {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#getLocationBtn:hover {
+    background: #1d4ed8;
+}

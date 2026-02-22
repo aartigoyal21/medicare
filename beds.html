@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bed Availability | MediCare+</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+            margin: 0;
+            transition: 0.3s;
+        }
+        body.dark {
+            background: #0f172a;
+            color: #e5e7eb;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 35px;
+            background: #ffffff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        body.dark .top-bar { background: #020617; }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2563eb;
+        }
+        body.dark .logo { color: #93c5fd; }
+
+        .actions { display: flex; gap: 20px; align-items: center; }
+
+        .home-btn {
+            text-decoration: none;
+            font-size: 14px;
+            padding: 8px 14px;
+            border-radius: 6px;
+            background: #2563eb;
+            color: white;
+        }
+
+        .toggle { font-size: 22px; cursor: pointer; }
+
+        .header {
+            text-align: center;
+            margin: 40px 20px 30px;
+        }
+        .header h2 { color: #1e3a8a; }
+        body.dark .header h2 { color: #bfdbfe; }
+
+        .header p {
+            color: #6b7280;
+            font-size: 15px;
+        }
+        body.dark .header p { color: #94a3b8; }
+
+        .bed-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 25px;
+            padding: 0 40px 40px;
+        }
+
+        .bed-card {
+            background: white;
+            padding: 22px;
+            border-radius: 14px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        .bed-card:hover { transform: translateY(-4px); }
+        body.dark .bed-card { background: #1e293b; }
+
+        .icon-img { width: 55px; margin-bottom: 12px; }
+        body.dark .icon-img { filter: invert(1); }
+
+        .bed-card h3 { color: #2563eb; }
+        body.dark .bed-card h3 { color: #93c5fd; }
+
+        .total { font-size: 14px; color: #6b7280; }
+        body.dark .total { color: #cbd5e1; }
+
+        .available { font-weight: 600; color: #15803d; }
+        body.dark .available { color: #4ade80; }
+
+        .occupied { font-size: 14px; color: #b91c1c; }
+        body.dark .occupied { color: #f87171; }
+
+        .note {
+            text-align: center;
+            font-size: 13px;
+            color: #6b7280;
+            padding-bottom: 20px;
+        }
+        body.dark .note { color: #94a3b8; }
+    </style>
+</head>
+
+<body>
+
+<div class="top-bar">
+    <div class="logo">MediCare+</div>
+    <div class="actions">
+        <a href="index.html" class="home-btn">⬅ Home</a>
+        <div class="toggle" onclick="toggleMode()">🌙</div>
+    </div>
+</div>
+
+<div class="header">
+    <h2>Bed & Room Availability</h2>
+    <p>Live hospital bed status for better patient planning</p>
+</div>
+
+<div class="bed-container">
+
+    <div class="bed-card">
+        <img class="icon-img" src="https://img.icons8.com/ios-filled/100/hospital-bed.png">
+        <h3>ICU Beds</h3>
+        <p class="total">Total: <span id="icu-total">--</span></p>
+        <p class="available">Available: <span id="icu-available">--</span></p>
+        <p class="occupied">Occupied: <span id="icu-occupied">--</span></p>
+    </div>
+
+    <div class="bed-card">
+        <img class="icon-img" src="https://img.icons8.com/ios-filled/100/bed.png">
+        <h3>General Ward</h3>
+        <p class="total">Total: <span id="general-total">--</span></p>
+        <p class="available">Available: <span id="general-available">--</span></p>
+        <p class="occupied">Occupied: <span id="general-occupied">--</span></p>
+    </div>
+
+    <div class="bed-card">
+        <img class="icon-img" src="https://img.icons8.com/ios-filled/100/ambulance.png">
+        <h3>Emergency Beds</h3>
+        <p class="total">Total: <span id="emergency-total">--</span></p>
+        <p class="available">Available: <span id="emergency-available">--</span></p>
+        <p class="occupied">Occupied: <span id="emergency-occupied">--</span></p>
+    </div>
+
+    <div class="bed-card">
+        <img class="icon-img" src="https://img.icons8.com/ios-filled/100/children.png">
+        <h3>Pediatric Ward</h3>
+        <p class="total">Total: <span id="pediatric-total">--</span></p>
+        <p class="available">Available: <span id="pediatric-available">--</span></p>
+        <p class="occupied">Occupied: <span id="pediatric-occupied">--</span></p>
+    </div>
+
+    <div class="bed-card">
+        <img class="icon-img" src="https://img.icons8.com/ios-filled/100/pregnant.png">
+        <h3>Maternity Ward</h3>
+        <p class="total">Total: <span id="maternity-total">--</span></p>
+        <p class="available">Available: <span id="maternity-available">--</span></p>
+        <p class="occupied">Occupied: <span id="maternity-occupied">--</span></p>
+    </div>
+
+</div>
+
+<p class="note">
+    *Bed availability is updated by hospital administration in real-time
+</p>
+
+<script>
+function toggleMode(){
+    document.body.classList.toggle("dark");
+    document.querySelector(".toggle").textContent =
+      document.body.classList.contains("dark") ? "☀️" : "🌙";
+}
+
+// ✅ BACKEND DATA FETCH (FIXED)
+fetch("http://localhost:3000/api/beds")
+  .then(res => res.json())
+  .then(data => {
+
+    document.getElementById("icu-total").innerText = data.icu.total;
+    document.getElementById("icu-available").innerText = data.icu.available;
+    document.getElementById("icu-occupied").innerText = data.icu.occupied;
+
+    document.getElementById("general-total").innerText = data.general.total;
+    document.getElementById("general-available").innerText = data.general.available;
+    document.getElementById("general-occupied").innerText = data.general.occupied;
+
+    document.getElementById("emergency-total").innerText = data.emergency.total;
+    document.getElementById("emergency-available").innerText = data.emergency.available;
+    document.getElementById("emergency-occupied").innerText = data.emergency.occupied;
+
+    document.getElementById("pediatric-total").innerText = data.pediatric.total;
+    document.getElementById("pediatric-available").innerText = data.pediatric.available;
+    document.getElementById("pediatric-occupied").innerText = data.pediatric.occupied;
+
+    document.getElementById("maternity-total").innerText = data.maternity.total;
+    document.getElementById("maternity-available").innerText = data.maternity.available;
+    document.getElementById("maternity-occupied").innerText = data.maternity.occupied;
+  })
+  .catch(err => {
+    console.error("Backend error:", err);
+  });
+</script>
+
+</body>
+</html>

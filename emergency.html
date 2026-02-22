@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Help | MediCare+</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="emergency-page">
+
+    <!-- Emergency Container -->
+    <div class="emergency-container">
+
+        <h2>🚑 Emergency Assistance</h2>
+
+        <p style="margin-bottom:15px; color:#555;">
+            Fill your details and press emergency button.
+            Hospital will receive your request instantly.
+        </p>
+
+        <!-- Emergency Form -->
+        <form id="emergencyForm">
+
+            <input 
+                type="text"
+                id="name"
+                placeholder="Enter Your Name"
+                required
+            >
+
+         <button type="button" id="getLocationBtn">
+    📍 Get My Location
+</button>
+
+<p id="locationText" style="margin-top:10px;color:#333;"></p>
+
+            <button type="submit" class="emergency-btn">
+                🚨 EMERGENCY
+            </button>
+
+        </form>
+
+        <p id="statusMsg" style="margin-top:15px; font-weight:bold;"></p>
+
+        <!-- Back Button -->
+        <a href="index.html" style="display:block; margin-top:20px; text-decoration:none;">
+            ← Back to Home
+        </a>
+
+    </div>
+
+    <!-- Emergency Script -->
+   <script>
+
+let userLocation = "";
+
+// 📍 Get GPS Location
+document.getElementById("getLocationBtn")
+.addEventListener("click", () => {
+
+    const locationText = document.getElementById("locationText");
+
+    if (!navigator.geolocation) {
+        locationText.innerText = "Geolocation not supported.";
+        return;
+    }
+
+    locationText.innerText = "Getting location...";
+
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+
+            userLocation = `${lat}, ${lon}`;
+
+            locationText.innerHTML =
+                `✅ Location captured<br>
+                 <a target="_blank"
+                 href="https://www.google.com/maps?q=${lat},${lon}">
+                 View on Map</a>`;
+        },
+        () => {
+            locationText.innerText = "❌ Location permission denied.";
+        }
+    );
+});
+
+
+// 🚨 Emergency Submit
+document.getElementById("emergencyForm")
+.addEventListener("submit", async function(e) {
+
+    e.preventDefault();
+
+    const name = document.getElementById("name").value;
+    const statusMsg = document.getElementById("statusMsg");
+
+    if (!userLocation) {
+        alert("Please get your location first!");
+        return;
+    }
+
+    statusMsg.innerText = "Sending emergency request...";
+
+    try {
+        const response = await fetch("http://localhost:3000/emergency", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name: name,
+                location: userLocation
+            })
+        });
+
+        const data = await response.json();
+
+        statusMsg.style.color = "green";
+        statusMsg.innerText = data.message;
+
+    } catch {
+        statusMsg.style.color = "red";
+        statusMsg.innerText = "❌ Failed to send emergency request.";
+    }
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Doctor Login | MediCare+</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Animated background orbs */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.25;
+      animation: drift 8s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+    .orb1 { width:400px; height:400px; background:#00b4d8; top:-100px; left:-100px; animation-delay:0s; }
+    .orb2 { width:300px; height:300px; background:#0077b6; bottom:-80px; right:-80px; animation-delay:2s; }
+    .orb3 { width:200px; height:200px; background:#90e0ef; top:50%; left:60%; animation-delay:4s; }
+
+    @keyframes drift {
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(30px,20px) scale(1.1); }
+    }
+
+    /* LOGIN CARD */
+    .login-wrap {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 460px;
+      padding: 20px;
+    }
+
+    .login-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(144,224,239,0.25);
+      backdrop-filter: blur(24px);
+      border-radius: 28px;
+      padding: 50px 44px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+      animation: cardIn 0.7s cubic-bezier(.34,1.4,.64,1);
+    }
+
+    @keyframes cardIn {
+      from { opacity:0; transform: translateY(40px) scale(0.95); }
+      to   { opacity:1; transform: translateY(0) scale(1); }
+    }
+
+    .brand {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+    .brand-icon {
+      width: 64px; height: 64px;
+      background: linear-gradient(135deg, #00b4d8, #90e0ef);
+      border-radius: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      margin-bottom: 16px;
+      box-shadow: 0 8px 30px rgba(0,180,216,0.4);
+    }
+    .brand h1 { font-size: 24px; font-weight: 700; color: #90e0ef; }
+    .brand p  { font-size: 13px; color: rgba(176,216,232,0.7); margin-top: 4px; }
+
+    .field { margin-bottom: 20px; }
+    .field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: rgba(176,216,232,0.8);
+      margin-bottom: 8px;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+    .input-wrap .icon {
+      position: absolute;
+      left: 16px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 17px;
+      pointer-events: none;
+    }
+    .field input {
+      width: 100%;
+      padding: 14px 16px 14px 46px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(144,224,239,0.22);
+      border-radius: 12px;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: 0.3s;
+    }
+    .field input:focus {
+      border-color: #00b4d8;
+      background: rgba(0,180,216,0.12);
+      box-shadow: 0 0 0 3px rgba(0,180,216,0.2);
+    }
+    .field input::placeholder { color: rgba(176,216,232,0.35); }
+
+    /* role selector */
+    .role-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .role-opt {
+      padding: 12px;
+      border: 1px solid rgba(144,224,239,0.22);
+      border-radius: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.3s;
+      background: rgba(255,255,255,0.05);
+    }
+    .role-opt .ro-icon { font-size: 22px; margin-bottom: 4px; }
+    .role-opt .ro-label { font-size: 12px; color: rgba(176,216,232,0.7); }
+    .role-opt.selected {
+      background: rgba(0,180,216,0.2);
+      border-color: #00b4d8;
+      box-shadow: 0 0 14px rgba(0,180,216,0.25);
+    }
+    .role-opt.selected .ro-label { color: #90e0ef; }
+
+    .btn-login {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(45deg, #00b4d8, #90e0ef);
+      color: #003049;
+      font-family: 'Poppins', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: 0.3s;
+      letter-spacing: 0.3px;
+    }
+    .btn-login:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,180,216,0.5); }
+    .btn-login:active { transform: scale(0.98); }
+
+    .error-msg {
+      display: none;
+      background: rgba(255,107,107,0.15);
+      border: 1px solid rgba(255,107,107,0.4);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #ff8f8f;
+      text-align: center;
+      margin-top: 16px;
+      animation: shake 0.4s ease;
+    }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      25%      { transform: translateX(-8px); }
+      75%      { transform: translateX(8px); }
+    }
+
+    .back-link {
+      text-align: center;
+      margin-top: 24px;
+    }
+    .back-link a {
+      font-size: 13px;
+      color: rgba(176,216,232,0.6);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .back-link a:hover { color: #90e0ef; }
+
+    /* Demo hint */
+    .demo-hint {
+      margin-top: 20px;
+      padding: 12px 16px;
+      background: rgba(0,180,216,0.08);
+      border: 1px dashed rgba(0,229,255,0.25);
+      border-radius: 10px;
+      font-size: 12px;
+      color: rgba(176,216,232,0.6);
+      text-align: center;
+      line-height: 1.8;
+    }
+    .demo-hint span { color: #90e0ef; font-weight: 600; }
+  </style>
+</head>
+<body>
+
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+
+<div class="login-wrap">
+  <div class="login-card">
+
+    <div class="brand">
+      <div class="brand-icon">🏥</div>
+      <h1>MediCare+</h1>
+      <p>Staff Portal — Secure Access</p>
+    </div>
+
+    <!-- Role Selector -->
+    <div style="margin-bottom:20px;">
+      <label style="display:block;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(176,216,232,0.8);margin-bottom:10px;">Login As</label>
+      <div class="role-grid">
+        <div class="role-opt selected" onclick="selectRole(this,'doctor')" data-role="doctor">
+          <div class="ro-icon">👨‍⚕️</div>
+          <div class="ro-label">Doctor</div>
+        </div>
+        <div class="role-opt" onclick="selectRole(this,'admin')" data-role="admin">
+          <div class="ro-icon">🛡️</div>
+          <div class="ro-label">Admin</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Username / Doctor ID</label>
+      <div class="input-wrap">
+        <span class="icon">👤</span>
+        <input type="text" id="username" placeholder="e.g. dr.smith" autocomplete="off">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Password</label>
+      <div class="input-wrap">
+        <span class="icon">🔒</span>
+        <input type="password" id="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+      </div>
+    </div>
+
+    <button class="btn-login" onclick="doLogin()">Sign In to Dashboard →</button>
+
+    <div class="error-msg" id="errorMsg">❌ Invalid credentials. Please try again.</div>
+
+    <div class="demo-hint">
+      Demo: username <span>doctor</span> / password <span>1234</span>
+    </div>
+
+    <div class="back-link">
+      <a href="index.html">← Back to MediCare+ Home</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- <script>
+  let selectedRole = 'doctor';
+
+  function selectRole(el, role) {
+    document.querySelectorAll('.role-opt').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedRole = role;
+  }
+
+  function doLogin() {
+    const user = document.getElementById('username').value.trim();
+    const pass = document.getElementById('password').value;
+    const err  = document.getElementById('errorMsg');
+
+    // Demo credentials — in production verify via /api/login
+    const creds = { doctor: '1234', admin: 'admin123' };
+
+    if (creds[user] === pass || (user === 'doctor' && pass === '1234') || (user === 'admin' && pass === 'admin123')) {
+      sessionStorage.setItem('mc_role', selectedRole);
+      sessionStorage.setItem('mc_user', user);
+      window.location.href = 'doctor-panel.html';
+    } else {
+      err.style.display = 'block';
+      err.style.animation = 'none';
+      void err.offsetWidth;
+      err.style.animation = 'shake 0.4s ease';
+    }
+  }
+</script> -->
+
+<script>
+let selectedRole = 'doctor';
+
+// select role button
+function selectRole(el, role) {
+  document.querySelectorAll('.role-opt')
+    .forEach(o => o.classList.remove('selected'));
+
+  el.classList.add('selected');
+  selectedRole = role;
+}
+
+
+// LOGIN FUNCTION
+function doLogin() {
+
+  const user = document.getElementById('username').value.trim();
+  const pass = document.getElementById('password').value;
+  const err  = document.getElementById('errorMsg');
+
+  // ✅ Separate credentials
+  const accounts = {
+    doctor: {
+      username: "doctor",
+      password: "1234"
+    },
+    admin: {
+      username: "admin",
+      password: "admin123"
+    }
+  };
+
+  const account = accounts[selectedRole];
+
+  // ✅ Check role + username + password
+  if (user === account.username && pass === account.password) {
+
+      sessionStorage.setItem('mc_role', selectedRole);
+      sessionStorage.setItem('mc_user', user);
+
+      window.location.href = "doctor-panel.html";
+
+  } else {
+
+      err.style.display = "block";
+      err.style.animation = "none";
+      void err.offsetWidth;
+      err.style.animation = "shake 0.4s ease";
+  }
+}
+</script>
+</body>
+</html>
